@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
 export const loginSchema = z.object({
-  email: z
+  contact: z
     .string()
     .trim()
-    .email('Invalid email address')
-    .min(1, { message: 'Email address is required.' }),
+    .min(1, { message: 'Phone number is required.' })
+    .max(10, { message: 'Invalid phone number' }),
   password: z
     .string()
     .trim()
