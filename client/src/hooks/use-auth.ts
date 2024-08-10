@@ -12,7 +12,7 @@ export const useAuth = ({ middleware }: { middleware: 'guest' | 'auth' }) => {
   } = useQuery({
     queryKey: ['user'],
     queryFn: getUser,
-    // retry: false,
+    retry: false,
   });
 
   useEffect(() => {
