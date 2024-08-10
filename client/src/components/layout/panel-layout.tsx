@@ -1,9 +1,9 @@
-import { cn } from '@/lib/utils';
+import { useSidebarToggle } from '@/hooks/use-sidebar-toggle';
 import { useStore } from '@/hooks/use-store';
+import { cn } from '@/lib/utils';
+import { Outlet } from 'react-router-dom';
 import Footer from './footer';
 import Sidebar from './sidebar';
-import { useSidebarToggle } from '@/hooks/use-sidebar-toggle';
-import { Outlet } from 'react-router-dom';
 
 export default function AdminPanelLayout() {
   const sidebar = useStore(useSidebarToggle, state => state);
