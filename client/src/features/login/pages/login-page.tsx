@@ -1,5 +1,5 @@
-import LoginForm from '@/features/login/components/login-form';
 import { useTitle } from '@/hooks/use-title';
+import LoginForm from '../components/login-form';
 
 export default function LoginPage() {
   useTitle('Login');
