@@ -1,1 +1,1 @@
-export type Jayden = { name: string; age: number };
+export type ServerError = Record<string, string[]>;
