@@ -2,6 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { isAxiosError } from 'axios';
+import { useMutation } from '@tanstack/react-query';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -14,20 +16,23 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { ErrorComponent } from '@/components/ui/basic-alert';
 
 import { cn } from '@/lib/utils';
 import { LoginFormValues } from '../types';
 import { loginSchema } from '../utils/schema';
-
 import { getCsrfToken } from '@/lib/auth';
 import axios from '@/lib/axios';
-import { useMutation } from '@tanstack/react-query';
+import { ServerError } from '@/types';
+import { useError } from '@/hooks/use-error';
+import { flattenErrors } from '@/lib/formatters';
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const { errors, onError, clearErrors } = useError();
   const form = useForm<LoginFormValues>({
     defaultValues: {
-      email: '',
+      contact: '',
       password: '',
     },
     resolver: zodResolver(loginSchema),
@@ -37,35 +42,40 @@ export default function LoginForm() {
     mutationFn: async (values: LoginFormValues) => {
       await getCsrfToken();
       await axios.post('/login', values);
+      // console.log(data);
     },
     onSuccess: () => {
       navigate('/dashboard');
     },
     onError: error => {
-      console.log(error.message);
+      if (isAxiosError(error)) {
+        onError(flattenErrors(error.response?.data.errors as ServerError));
+        return;
+      }
+      onError(error.message);
     },
   });
 
   async function onSubmit(values: LoginFormValues) {
+    clearErrors();
     mutate(values);
   }
 
   return (
     <div className="h-full flex items-center justify-center mx-4 sm:mx-0">
       <div className="space-y-2">
-        <span
-          role="img"
-          aria-label="money bag"
-          className="text-4xl block text-center"
-        >
-          💰
-        </span>
+        <img
+          src="/logos/pcea-logo-128.png"
+          alt="PCEA Logo"
+          className="mx-auto size-16 sm:size-24"
+        />
         <h1 className="text-xl sm:text-3xl font-bold text-center tracking-tight">
-          Welcome to ACME Finance
+          PCEA Woman's Guild
         </h1>
         <p className="text-xs sm:text-base text-muted-foreground">
           Welcome Back! Enter your credentials to access your account!
         </p>
+        {errors && <ErrorComponent error={errors} />}
         <Card className="w-full rounded border">
           <CardContent className="px-4 sm:px-6 py-4 md:py-6">
             <Form {...form}>
@@ -75,13 +85,14 @@ export default function LoginForm() {
               >
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="contact"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Phone No</FormLabel>
                       <FormControl>
                         <Input
-                          type="email"
+                          type="text"
+                          maxLength={10}
                           {...field}
                           placeholder="Enter phone number"
                           disabled={isPending}
