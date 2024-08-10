@@ -1,22 +1,15 @@
-'use client';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { LogOut } from 'lucide-react';
 
-import { LogOut, MonitorCog, Moon, Sun, SunMoon, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
-import { useTheme } from '@/app/theme-provider';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -25,9 +18,27 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { toast } from 'sonner';
+
+import axios from '@/lib/axios';
 
 export default function UserNav() {
-  const { setTheme } = useTheme();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { isPending, mutate } = useMutation({
+    mutationFn: async () => {
+      await axios.post('/logout');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      navigate('/');
+    },
+    onError: error => {
+      console.error(`🔥🔥LOGOUT ERROR: ${error.message}`);
+      toast.error('😔Failed to log you out');
+    },
+  });
+  // const { setTheme } = useTheme();
   return (
     <DropdownMenu>
       <TooltipProvider disableHoverableContent>
@@ -59,7 +70,7 @@ export default function UserNav() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
+        {/* <DropdownMenuGroup>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <SunMoon className="mr-2 h-4 w-4" />
@@ -88,9 +99,13 @@ export default function UserNav() {
               Account
             </Link>
           </DropdownMenuItem>
-        </DropdownMenuGroup>
+        </DropdownMenuGroup> */}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:cursor-pointer" onClick={() => {}}>
+        <DropdownMenuItem
+          className="hover:cursor-pointer"
+          onClick={() => mutate()}
+          disabled={isPending}
+        >
           <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
           Sign out
         </DropdownMenuItem>
