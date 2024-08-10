@@ -7,7 +7,7 @@ type BasicAlertProps = {
   className?: string;
 };
 
-export default function BasicAlert({
+export function BasicAlert({
   variant,
   description,
   title,
@@ -28,5 +28,28 @@ export default function BasicAlert({
         <AlertDescription>{description}</AlertDescription>
       )}
     </Alert>
+  );
+}
+
+export function ErrorComponent({
+  error,
+  showTitle,
+  title,
+}: {
+  error: string | string[] | undefined;
+  showTitle?: boolean;
+  title?: string;
+}) {
+  if (!error) return null;
+  return (
+    <BasicAlert
+      title={showTitle ? title : undefined}
+      description={
+        error ||
+        'There was an error while processing your request. Please try again later.'
+      }
+      variant="destructive"
+      className="w-full space-y-4"
+    />
   );
 }
