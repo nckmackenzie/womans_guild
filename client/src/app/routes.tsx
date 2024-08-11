@@ -1,8 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import LoginPage from '@/pages/login';
-import Dashboard from '@/pages/dashboard';
 import AdminPanelLayout from '@/components/layout/panel-layout';
+import DashboardPage from '@/features/dashboard/pages/dashboard-page';
+import LoginPage from '@/features/login/pages/login-page';
+import UsersPage from '@/features/users/pages/users-page';
+import { SessionProvider } from './session-provider';
+import NewUser from '@/features/login/pages/new-user';
 
 export const router = createBrowserRouter([
   {
@@ -10,11 +13,28 @@ export const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    element: <AdminPanelLayout />,
+    element: (
+      <SessionProvider>
+        <AdminPanelLayout />
+      </SessionProvider>
+    ),
     children: [
       {
         path: '/dashboard',
-        element: <Dashboard />,
+        element: <DashboardPage />,
+      },
+      {
+        path: '/admin',
+        children: [
+          {
+            path: 'users',
+            element: <UsersPage />,
+          },
+          {
+            path: 'users/new',
+            element: <NewUser />,
+          },
+        ],
       },
     ],
   },
