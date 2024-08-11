@@ -22,9 +22,11 @@ import {
 import BasicSelect from '@/components/ui/basic-select';
 import { Button } from '@/components/ui/button';
 
+// import { userFormSchema } from '../utils/schema';
+import { createUser } from '../../users/api';
+// import { type UserFormValues } from './types';
 import { userFormSchema } from '../utils/schema';
-import { createUser } from '../api';
-import { type UserFormValues } from '../types';
+import { UserFormValues } from '../types';
 
 export default function UserManagement() {
   return (
