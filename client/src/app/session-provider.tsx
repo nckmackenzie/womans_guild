@@ -1,6 +1,6 @@
 import { useAuth } from '@/hooks/use-auth';
 import { createContext, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 interface SessionProps {
   isLoading: boolean;
@@ -15,10 +15,10 @@ export const SessionProvider = ({
   children: React.ReactNode;
 }) => {
   const { isLoading, user } = useAuth({ middleware: 'auth' });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   if (!user) {
-    navigate('/');
+    <Navigate to="/login" replace />;
     return;
   }
 
