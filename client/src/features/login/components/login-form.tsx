@@ -38,7 +38,7 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const { isPending, mutate } = useMutation({
+  const { isPending, mutate: login } = useMutation({
     mutationFn: async (values: LoginFormValues) => {
       await getCsrfToken();
       await axios.post('/login', values);
@@ -58,7 +58,7 @@ export default function LoginForm() {
 
   async function onSubmit(values: LoginFormValues) {
     clearErrors();
-    mutate(values);
+    login(values);
   }
 
   return (
