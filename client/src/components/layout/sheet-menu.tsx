@@ -8,6 +8,8 @@ import {
   SheetHeader,
   SheetContent,
   SheetTrigger,
+  SheetTitle,
+  SheetDescription,
 } from '@/components/ui/sheet';
 
 export default function SheetMenu() {
@@ -20,6 +22,10 @@ export default function SheetMenu() {
       </SheetTrigger>
       <SheetContent className="sm:w-72 px-3 h-full flex flex-col" side="left">
         <SheetHeader>
+          <SheetTitle className="sr-only">Sidebar menu</SheetTitle>
+          <SheetDescription className="sr-only">
+            Sidebar navigation for mobile devices.
+          </SheetDescription>
           <Button
             className="flex justify-center items-center pb-2 pt-1"
             variant="link"
