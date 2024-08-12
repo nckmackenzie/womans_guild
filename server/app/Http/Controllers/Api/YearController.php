@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Year;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,7 +24,9 @@ class YearController extends Controller
     {
         //validation
         $validator = Validator::make($request->all(),[
-
+            'name' => ['required','unique:years'],
+            'start_date' => ['required','date','before_or_equal:end_date'],
+            'end_date' => ['required']
         ]);
 
         if($validator->fails()){
@@ -31,6 +34,15 @@ class YearController extends Controller
                                      'message' => 'validation error.Check your input and try again.',
                                     'errors' => $validator->errors()],422);
         }
+
+        $year = Year::create([
+            'name'=> $request->name,
+            'start_date' => date('Y-m-d',strtotime($request->start_date)),
+            'end_date' => date('Y-m-d',strtotime($request->end_date)),
+            'created_by' => $request->user()->id,
+        ]);
+
+        return response()->json(['message' => 'Year created successfully.','data' => $year],201);
     }
 
     /**
