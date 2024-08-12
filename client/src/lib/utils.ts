@@ -12,3 +12,7 @@ export function validateEmail(email: string) {
 }
 
 export const queryClient = new QueryClient();
+
+export const dummyArray = (length: number) => {
+  return Array.from({ length: length || 5 });
+};
