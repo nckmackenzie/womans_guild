@@ -71,4 +71,24 @@
   body {
     @apply bg-background text-foreground font-sans h-dvh;
   }
+
+  .icon {
+    @apply w-4 h-4;
+  }
+
+  .icon-muted {
+    @apply w-4 h-4 text-muted-foreground;
+  }
+
+  .delete-menu-item {
+    @apply relative w-full flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm text-destructive outline-none transition-colors hover:bg-secondary focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50;
+  }
+
+  .more-btn {
+    @apply outline-none border-none cursor-pointer;
+  }
+
+  .input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm;
+  }
 }
