@@ -19,7 +19,7 @@ export const useAuth = ({ middleware }: { middleware: 'guest' | 'auth' }) => {
     if (middleware === 'guest' && user) navigate('/dashboard');
 
     if (middleware === 'auth' && error) {
-      navigate('/');
+      navigate('/login');
     }
   }, [error, navigate, user, middleware]);
 
