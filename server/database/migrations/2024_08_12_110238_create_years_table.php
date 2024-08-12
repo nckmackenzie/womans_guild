@@ -17,8 +17,11 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->boolean('is_closed')->default(false);
-            $table->foreignId('created_by')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreignId('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
