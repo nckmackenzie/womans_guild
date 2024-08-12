@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
+import { Loader } from 'lucide-react';
 
 import { ErrorComponent } from '@/components/ui/basic-alert';
 import { Button } from '@/components/ui/button';
@@ -23,34 +26,70 @@ import {
 import { Input } from '@/components/ui/input';
 
 import { useError } from '@/hooks/use-error';
-import { createYear } from '../api';
+import { createYear, fetchYear } from '../api';
 import { yearFormSchema } from '../schema';
 import type { YearFormValues } from '../types';
 
 export default function YearForm() {
+  const params = useParams<{ id: string }>();
+  const { id } = params;
+
   const { clearErrors, errors, onError } = useError();
+  const navigate = useNavigate();
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['year', id],
+    queryFn: () => fetchYear(id as string),
+    enabled: !!id,
+  });
 
   const form = useForm<YearFormValues>({
     defaultValues: {
       name: '',
-      startDate: undefined,
-      endDate: undefined,
+      start_date: undefined,
+      end_date: undefined,
     },
     resolver: zodResolver(yearFormSchema),
   });
 
   const queryClient = useQueryClient();
+
+  useEffect(
+    function () {
+      if (data) {
+        form.reset({
+          name: data.data.name,
+          start_date: new Date(data.data.start_date),
+          end_date: new Date(data.data.end_date),
+        });
+      }
+    },
+    [form, data]
+  );
+
   const { isPending, mutate: create } = useMutation({
-    mutationFn: createYear,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['years'] }),
+    mutationFn: ({ values, id }: { values: YearFormValues; id?: string }) =>
+      createYear(values, id),
+    onSuccess: () => {
+      navigate('/admin/years');
+      queryClient.invalidateQueries({ queryKey: ['years'] });
+    },
     onError: error => {
-      onError(error.message);
+      onError(error.message.split('\n'));
     },
   });
 
   function onSubmit(values: YearFormValues) {
     clearErrors();
-    create(values);
+    create({ values, id });
+  }
+
+  if (isLoading) {
+    return (
+      <div className="h-[400px] flex items-center justify-center text-primary">
+        <Loader className="size-6 animate-spin" />
+      </div>
+    );
   }
 
   return (
@@ -61,6 +100,7 @@ export default function YearForm() {
       </CardHeader>
       <CardContent>
         {errors && <ErrorComponent error={errors} />}
+        {error && <ErrorComponent error={errors || error.message} />}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -85,7 +125,7 @@ export default function YearForm() {
             />
             <FormField
               control={form.control}
-              name="startDate"
+              name="start_date"
               render={({ field }) => (
                 <FormItem className="col-span-full md:col-span-6">
                   <FormLabel>Start Date</FormLabel>
@@ -101,7 +141,7 @@ export default function YearForm() {
             />
             <FormField
               control={form.control}
-              name="endDate"
+              name="end_date"
               render={({ field }) => (
                 <FormItem className="col-span-full md:col-span-6">
                   <FormLabel>End Date</FormLabel>
