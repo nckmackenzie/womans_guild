@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,9 +14,17 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(['data' => User::orderBy('name','asc')->get()],200);
+        // return response()->json(['data' => User::orderBy('name','asc')->get()],200);
+        $query = $request->query('search');
+        if($query){
+            return response()->json(['data' => DB::table('users')
+                              ->where('name','like',"%$query%")
+                              ->orderBy('name','asc')->get()],200);
+        }else{
+            return response()->json(['data' => DB::table('users')->orderBy('name','asc')->get()],200);
+        }
     }
 
     /**
