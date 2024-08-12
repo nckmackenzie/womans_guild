@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Year;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class YearController extends Controller
@@ -12,9 +13,15 @@ class YearController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = $request->query('search');
+        if($query){
+            return response()->json(['data' => DB::table('years')
+                                               ->where('name','like',"%{$query}%")
+                                               ->orderBy('name','asc')->get()],200);
+        }
+        return response()->json(['data' => DB::table('years')->orderBy('name','asc')->get()],200);
     }
 
     /**
@@ -50,7 +57,8 @@ class YearController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $year = Year::findOrFail($id);
+        return response()->json(['data' => $year],200);
     }
 
     /**
@@ -58,7 +66,20 @@ class YearController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $year = Year::findOrFail($id);
+        $year->update([
+            'name'=> $request->name,
+            'start_date' => date('Y-m-d',strtotime($request->start_date)),
+            'end_date' => date('Y-m-d',strtotime($request->end_date)),
+            'updated_by' => $request->user()->id,
+        ]);
+        return response()->json(['message' => 'Year updated successfully.','data' => $year],200);
     }
 
     /**
