@@ -31,7 +31,7 @@ export default function UserNav() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries();
-      navigate('/');
+      navigate('/login');
     },
     onError: error => {
       console.error(`🔥🔥LOGOUT ERROR: ${error.message}`);
