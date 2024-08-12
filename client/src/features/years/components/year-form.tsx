@@ -41,6 +41,7 @@ export default function YearForm() {
     queryKey: ['year', id],
     queryFn: () => fetchYear(id as string),
     enabled: !!id,
+    refetchInterval: false,
   });
 
   const form = useForm<YearFormValues>({
