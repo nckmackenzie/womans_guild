@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 
 import axios from '@/lib/axios';
-import { type YearFormValues } from './types';
+import { Year, type YearFormValues } from './types';
 import { flattenErrors } from '@/lib/formatters';
 
 export async function createYear(values: YearFormValues) {
@@ -16,5 +16,18 @@ export async function createYear(values: YearFormValues) {
       console.error('Unexpected error:', error);
       throw new Error('An unexpected error occurred.');
     }
+  }
+}
+
+export async function fetchYears(query?: string): Promise<{ data: Year[] }> {
+  try {
+    const { data } = await axios.get(
+      query ? `/api/years?search=${query}` : '/api/years'
+    );
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('An error occurred while fetching data.');
   }
 }
