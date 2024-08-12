@@ -12,7 +12,7 @@ import ErrorPage from '@/components/ui/error-page';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/login',
     element: <LoginPage />,
   },
   {
@@ -47,7 +47,15 @@ export const router = createBrowserRouter([
             path: 'years/new',
             element: <NewYear />,
           },
+          {
+            path: 'years/edit/:id',
+            element: <NewYear />,
+          },
         ],
+      },
+      {
+        path: '*',
+        element: <ErrorPage />,
       },
     ],
   },
