@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VoteheadController;
 use App\Http\Controllers\Api\YearController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,4 +15,5 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/users',[UserController::class,'index']);
 
     Route::apiResource('years',YearController::class);
+    Route::apiResource('voteheads',VoteheadController::class);
 });
