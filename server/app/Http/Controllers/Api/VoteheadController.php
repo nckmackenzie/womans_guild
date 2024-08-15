@@ -96,6 +96,17 @@ class VoteheadController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+
+            $votehead = VoteHead::findOrFail($id);
+            $votehead->delete();
+            return response()->json(['status' => 204, 'message' => 'Votehead deleted successfully.'], 204);
+            
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['status' => 404, 'message' => 'Votehead not found.'], 404);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['status' => 500, 'message' => 'Internal server error.'], 500);
+        }
     }
 }
