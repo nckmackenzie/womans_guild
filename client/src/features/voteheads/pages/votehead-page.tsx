@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { ColumnDef } from '@tanstack/react-table';
 import { ChartCandlestick, MoreVertical } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -29,13 +30,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Badge } from '@/components/ui/badge';
+import { CustomAlertDialog } from '@/components/ui/custom-alert-dialog';
 
 import { usePageFetch } from '@/hooks/use-page-fetch';
-import { fetchVoteheads } from '../api';
+import { deleteVotehead, fetchVoteheads } from '../api';
 import { type Votehead } from '../votehead.types';
 import { useTitle } from '@/hooks/use-title';
 import { dummyArray } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
+import { toast } from 'sonner';
 
 export default function VoteheadPage() {
   useTitle('Voteheads');
@@ -112,6 +115,14 @@ function VoteheadTableSkeleton() {
 }
 
 function VoteheadsDatatable({ data }: { data: Votehead[] }) {
+  const queryClient = useQueryClient();
+  const { mutate: deleteVoteHead } = useMutation({
+    mutationFn: deleteVotehead,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['voteheads'] }),
+    onError: error => {
+      toast.error(error.message);
+    },
+  });
   const columns: ColumnDef<Votehead>[] = [
     {
       accessorKey: 'name',
@@ -143,6 +154,11 @@ function VoteheadsDatatable({ data }: { data: Votehead[] }) {
       id: 'actions',
       cell: ({ row }) => {
         const votehead = row.original;
+
+        function handleDelete(id: string) {
+          deleteVoteHead(id);
+        }
+
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -154,9 +170,9 @@ function VoteheadsDatatable({ data }: { data: Votehead[] }) {
               <DropdownMenuItem asChild>
                 <Link to={`/admin/voteheads/edit/${votehead.id}`}>Edit</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-destructive">
-                Delete
-              </DropdownMenuItem>
+              <CustomAlertDialog onConfirm={() => handleDelete(votehead.id)}>
+                <button className="delete-menu-item">Delete</button>
+              </CustomAlertDialog>
             </DropdownMenuContent>
           </DropdownMenu>
         );

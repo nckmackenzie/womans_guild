@@ -65,3 +65,20 @@ export async function fetchVotehead(
     throw new Error('An error occurred while fetching data.');
   }
 }
+
+export async function deleteVotehead(id: string) {
+  try {
+    await axios.delete(`/api/voteheads/${id}`);
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message ||
+          'An error occurred while fetching data.'
+      );
+    }
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error('An error occurred while fetching data.');
+  }
+}
