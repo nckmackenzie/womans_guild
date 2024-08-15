@@ -9,6 +9,9 @@ import NewUser from '@/features/users/pages/new-user';
 import YearsPage from '@/features/years/pages/years-page';
 import NewYear from '@/features/years/pages/new-year';
 import ErrorPage from '@/components/ui/error-page';
+import NotFound from '@/components/ui/not-found';
+import VoteheadPage from '@/features/voteheads/pages/votehead-page';
+import VoteheadManagement from '@/features/voteheads/pages/votehead-management';
 
 export const router = createBrowserRouter([
   {
@@ -51,11 +54,23 @@ export const router = createBrowserRouter([
             path: 'years/edit/:id',
             element: <NewYear />,
           },
+          {
+            path: 'voteheads',
+            element: <VoteheadPage />,
+          },
+          {
+            path: 'voteheads/new',
+            element: <VoteheadManagement />,
+          },
+          {
+            path: 'voteheads/edit/:id',
+            element: <VoteheadManagement isEdit />,
+          },
         ],
       },
       {
         path: '*',
-        element: <ErrorPage />,
+        element: <NotFound />,
       },
     ],
   },
