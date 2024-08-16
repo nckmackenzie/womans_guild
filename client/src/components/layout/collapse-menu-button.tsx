@@ -24,6 +24,7 @@ import {
   DropdownMenuContent,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
+import clsx from 'clsx';
 
 type Submenu = {
   href: string;
@@ -99,8 +100,10 @@ export function CollapseMenuButton({
         {submenus.map(({ href, label, active }, index) => (
           <Button
             key={index}
-            variant={active ? 'secondary' : 'ghost'}
-            className="w-full justify-start h-10 mb-1"
+            variant={'ghost'}
+            className={clsx('w-full justify-start h-10 mb-1', {
+              'text-primary': active,
+            })}
             asChild
           >
             <Link to={href}>
