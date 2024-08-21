@@ -47,8 +47,8 @@ export default function YearForm() {
   const form = useForm<YearFormValues>({
     defaultValues: {
       name: '',
-      start_date: undefined,
-      end_date: undefined,
+      startDate: undefined,
+      endDate: undefined,
     },
     resolver: zodResolver(yearFormSchema),
   });
@@ -60,8 +60,8 @@ export default function YearForm() {
       if (data) {
         form.reset({
           name: data.data.name,
-          start_date: new Date(data.data.start_date),
-          end_date: new Date(data.data.end_date),
+          startDate: new Date(data.data.startDate),
+          endDate: new Date(data.data.endDate),
         });
       }
     },
@@ -126,7 +126,7 @@ export default function YearForm() {
             />
             <FormField
               control={form.control}
-              name="start_date"
+              name="startDate"
               render={({ field }) => (
                 <FormItem className="col-span-full md:col-span-6">
                   <FormLabel>Start Date</FormLabel>
@@ -142,7 +142,7 @@ export default function YearForm() {
             />
             <FormField
               control={form.control}
-              name="end_date"
+              name="endDate"
               render={({ field }) => (
                 <FormItem className="col-span-full md:col-span-6">
                   <FormLabel>End Date</FormLabel>
