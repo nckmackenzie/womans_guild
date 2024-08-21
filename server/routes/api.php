@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoteheadController;
 use App\Http\Controllers\Api\YearController;
@@ -16,4 +17,5 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::apiResource('years',YearController::class);
     Route::apiResource('voteheads',VoteheadController::class);
+    Route::apiResource('members',MemberController::class);
 });
