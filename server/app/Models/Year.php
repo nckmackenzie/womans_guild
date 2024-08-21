@@ -15,4 +15,6 @@ class Year extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     protected $fillable = ['name','start_date','end_date','is_closed'];
+
+    protected $hidden = ['created_at','updated_at','created_by'];
 }
