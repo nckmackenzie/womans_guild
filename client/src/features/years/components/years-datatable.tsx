@@ -34,21 +34,19 @@ export default function YearsDatatable({ data }: { data: Year[] }) {
       ),
     },
     {
-      accessorKey: 'start_date',
+      accessorKey: 'startDate',
       header: 'Start Date',
       cell: ({ row }) => (
         <div className="text-sm">
-          {formatDateLong(row.getValue('start_date'))}
+          {formatDateLong(row.getValue('startDate'))}
         </div>
       ),
     },
     {
-      accessorKey: 'end_date',
+      accessorKey: 'endDate',
       header: 'End Date',
       cell: ({ row }) => (
-        <div className="text-sm">
-          {formatDateLong(row.getValue('end_date'))}
-        </div>
+        <div className="text-sm">{formatDateLong(row.getValue('endDate'))}</div>
       ),
     },
     {

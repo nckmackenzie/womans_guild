@@ -7,11 +7,11 @@ export const yearFormSchema = z
       .trim()
       .min(1, { message: 'Year is required.' })
       .toLowerCase(),
-    start_date: z.coerce.date({ required_error: 'Start date is required' }),
-    end_date: z.coerce.date({ required_error: 'End date is required' }),
+    startDate: z.coerce.date({ required_error: 'Start date is required' }),
+    endDate: z.coerce.date({ required_error: 'End date is required' }),
   })
-  .superRefine(({ start_date, end_date }, ctx) => {
-    if (start_date > end_date) {
+  .superRefine(({ startDate, endDate }, ctx) => {
+    if (startDate > endDate) {
       ctx.addIssue({
         code: 'custom',
         message: 'Start date must be before end date',
