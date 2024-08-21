@@ -17,8 +17,10 @@ import { ErrorComponent } from '@/components/ui/basic-alert';
 
 import { usePageFetch } from '@/hooks/use-page-fetch';
 import { fetchMembers } from '@/features/members/api';
+import { useTitle } from '@/hooks/use-title';
 
 export default function MembersPage() {
+  useTitle('Members');
   const { data, error, isLoading } = usePageFetch('members', fetchMembers);
   return (
     <ContentWrapper title="Members">
