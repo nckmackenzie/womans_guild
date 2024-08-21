@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { membersFormSchema } from '../utils/schema';
 
-type MemberFormValues = z.infer<typeof membersFormSchema>;
+export type MemberFormValues = z.infer<typeof membersFormSchema>;
 
 export type MemberShipStatus = MemberFormValues['status'];
 
