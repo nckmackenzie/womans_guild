@@ -30,7 +30,7 @@ export default function UserNav() {
       await axios.post('/logout');
     },
     onSuccess: () => {
-      queryClient.invalidateQueries();
+      queryClient.removeQueries();
       navigate('/login');
     },
     onError: error => {
@@ -70,36 +70,6 @@ export default function UserNav() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {/* <DropdownMenuGroup>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <SunMoon className="mr-2 h-4 w-4" />
-              <span>Change Theme</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent className="[&>*]:cursor-pointer">
-                <DropdownMenuItem onClick={() => setTheme('light')}>
-                  <Sun className="mr-2 h-4 w-4" />
-                  <span>Light</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme('dark')}>
-                  <Moon className="mr-2 h-4 w-4" />
-                  <span>Dark</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme('system')}>
-                  <MonitorCog className="mr-2 h-4 w-4" />
-                  <span>System</span>
-                </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-          <DropdownMenuItem className="hover:cursor-pointer" asChild>
-            <Link to="/account" className="flex items-center">
-              <User className="w-4 h-4 mr-3 text-muted-foreground" />
-              Account
-            </Link>
-          </DropdownMenuItem>
-        </DropdownMenuGroup> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="hover:cursor-pointer"
