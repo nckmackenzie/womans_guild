@@ -9,6 +9,8 @@ interface CustomSearchSelectProps {
   disabled?: boolean;
   value?: string;
   onChange?: (value: string) => void;
+  placeholder?: string;
+  enableClear?: boolean;
 }
 
 export default function CustomSearchSelect({
@@ -17,6 +19,8 @@ export default function CustomSearchSelect({
   onChange,
   disabled,
   value,
+  placeholder,
+  enableClear = true,
 }: CustomSearchSelectProps) {
   return (
     <SearchSelect
@@ -24,6 +28,8 @@ export default function CustomSearchSelect({
       onValueChange={onChange}
       defaultValue={defaultValue}
       value={value}
+      placeholder={placeholder || 'Search...'}
+      enableClear={enableClear}
     >
       {options.map(option => (
         <SearchSelectItem key={option.value} value={option.value}>
