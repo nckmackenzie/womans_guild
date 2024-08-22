@@ -22,12 +22,12 @@ class ExpenseFactory extends Factory
         return [
             'date' => fake()->dateTimeThisYear(),
             'votehead_id' => VoteHead::inRandomOrder()->first()->id,
-            'amount' => fake()->randomFloat(2,1000,50000),
+            'amount' => fake()->randomFloat(0,1000,50000),
             'payment_method' => fake()->randomElement(['cash', 'mpesa', 'cheque','bank']),
             'payment_reference' => fake()->swiftBicNumber(),
             'reference' => fake()->swiftBicNumber(),
             'member_id' => Member::inRandomOrder()->first()->id,
-            'description' => fake()->sentence(25),
+            'description' => fake()->sentence(10),
             'user_id' => User::inRandomOrder()->first()->id
         ];
     }
