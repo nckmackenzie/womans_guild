@@ -20,7 +20,7 @@ export function BasicAlert({
         <ul>
           {description.map((item, i) => (
             <li key={i}>
-              <AlertDescription>👉 {item}</AlertDescription>
+              <AlertDescription>- {item}</AlertDescription>
             </li>
           ))}
         </ul>
