@@ -9,7 +9,7 @@ export const membersFormSchema = z.object({
     .max(10, 'Invalid phone number'),
   birthDate: z.coerce.date().optional(),
   idNumber: z.string().optional(),
-  joiningDate: z.coerce.date().optional(),
+  joiningDate: z.coerce.date({ required_error: 'Joining date is required' }),
   status: z
     .enum(['active', 'inactive', 'departed', 'deceased'])
     .default('active'),
