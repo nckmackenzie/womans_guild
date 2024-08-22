@@ -1,4 +1,4 @@
-import { LayoutGrid, LucideIcon, Shield } from 'lucide-react';
+import { LayoutGrid, LucideIcon, Shield, Workflow } from 'lucide-react';
 
 type Submenu = {
   href: string;
@@ -40,17 +40,35 @@ export function getMenuList(pathname: string): Group[] {
             {
               href: '/admin/users',
               label: 'Users',
-              active: pathname === '/users',
+              active: pathname.includes('/admin/users'),
             },
             {
               href: '/admin/years',
               label: 'Financial Years',
-              active: pathname === '/years',
+              active: pathname.includes('/admin/years'),
             },
             {
               href: '/admin/voteheads',
               label: 'Voteheads',
-              active: pathname === '/glaccounts',
+              active: pathname.includes('/admin/voteheads'),
+            },
+          ],
+        },
+        {
+          href: '',
+          label: 'Transactions',
+          active: pathname.includes('/transactions'),
+          icon: Workflow,
+          submenus: [
+            {
+              href: '/transactions/members',
+              label: 'Members',
+              active: pathname.includes('/transactions/members'),
+            },
+            {
+              href: '/transactions/expenses',
+              label: 'Expenses',
+              active: pathname.includes('/transactions/expenses'),
             },
           ],
         },
