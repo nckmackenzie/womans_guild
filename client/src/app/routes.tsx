@@ -12,6 +12,9 @@ import ErrorPage from '@/components/ui/error-page';
 import NotFound from '@/components/ui/not-found';
 import VoteheadPage from '@/features/voteheads/pages/votehead-page';
 import VoteheadManagement from '@/features/voteheads/pages/votehead-management';
+import MembersPage from '@/features/members/page/members-page';
+import MemberCreateEdit from '@/features/members/page/create-edit';
+import { PageLoader } from '@/components/ui/loader';
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +68,27 @@ export const router = createBrowserRouter([
           {
             path: 'voteheads/edit/:id',
             element: <VoteheadManagement isEdit />,
+          },
+        ],
+      },
+      {
+        path: '/transactions',
+        children: [
+          {
+            path: 'members',
+            element: <MembersPage />,
+          },
+          {
+            path: 'members/new',
+            element: <MemberCreateEdit />,
+          },
+          {
+            path: 'members/edit/:id',
+            element: <MemberCreateEdit isEdit />,
+          },
+          {
+            path: 'expenses',
+            element: <PageLoader />,
           },
         ],
       },
