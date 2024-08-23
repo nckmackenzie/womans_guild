@@ -28,7 +28,7 @@ export default function CustomSearchSelect({
       onValueChange={onChange}
       defaultValue={defaultValue}
       value={value}
-      placeholder={placeholder || 'Search...'}
+      placeholder={placeholder || 'Select...'}
       enableClear={enableClear}
     >
       {options.map(option => (
