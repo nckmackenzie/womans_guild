@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchVoteheads } from '@/features/voteheads/api';
+import { fetchVoteheadsByType } from '@/features/voteheads/api';
+import { VoteheadType } from '@/features/voteheads/votehead.types';
 
-export function useFetchVoteheads() {
+export function useFetchVoteheads(voteheadType: VoteheadType) {
   const { isLoading, data, error } = useQuery({
     queryKey: ['voteheads'],
-    queryFn: () => fetchVoteheads(),
+    queryFn: () => fetchVoteheadsByType(voteheadType),
   });
 
   const voteheads = data?.data
