@@ -5,11 +5,11 @@ import Search from '@/components/ui/search';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from 'sonner';
 
-import { useFetchVoteheads } from '@/features/expenses/hooks/use-fetch-voteheads';
+import { useFetchVoteheads } from '@/features/voteheads/hooks/use-fetch-voteheads';
 
 export default function ExpenseFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { voteheads, error, isLoading } = useFetchVoteheads();
+  const { voteheads, error, isLoading } = useFetchVoteheads('EXPENSE');
 
   if (error) {
     toast.error('Error fetching voteheads');

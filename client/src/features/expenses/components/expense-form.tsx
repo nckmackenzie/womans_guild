@@ -21,7 +21,7 @@ import { PageLoader } from '@/components/ui/loader';
 import { useError } from '@/hooks/use-error';
 import type { IsEdit } from '@/types';
 import type { ExpenseFormValues } from '@/features/expenses/types';
-import { useFetchVoteheads } from '@/features/expenses/hooks/use-fetch-voteheads';
+import { useFetchVoteheads } from '@/features/voteheads/hooks/use-fetch-voteheads';
 import { PAYMENT_METHODS } from '@/features/expenses/utils';
 import { useMembers } from '@/features/members/hooks/use-members';
 import { expensesFormSchema } from '@/features/expenses/schema';
@@ -47,7 +47,7 @@ export default function ExpenseForm({ isEdit }: IsEdit) {
     updateExpense,
     { queryKey: 'expenses', redirectPath: '/transactions/expenses' }
   );
-  const { isLoading, voteheads, error } = useFetchVoteheads();
+  const { isLoading, voteheads, error } = useFetchVoteheads('EXPENSE');
   const { isLoadingMembers, members } = useMembers();
   const form = useForm<ExpenseFormValues>({
     defaultValues: {
