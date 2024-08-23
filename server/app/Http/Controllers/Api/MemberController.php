@@ -151,4 +151,11 @@ class MemberController extends Controller
         // If there are no members yet, start from 1 or any default value
         return $lastMemberNo ? $lastMemberNo + 1 : 1;
     }
+
+    public function activeMembers()
+    {
+        $members = Member::where('status', 'active')->where('is_deleted',0)
+                            ->select('id','name')->orderBy('name','asc')->get();
+        return response()->json(['data' => $members],200);
+    }
 }
