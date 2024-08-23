@@ -15,13 +15,13 @@ class YearController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $request->query('search');
-        if($query){
-            return response()->json(['data' => DB::table('years')
-                                               ->where('name','like',"%{$query}%")
-                                               ->orderBy('name','asc')->get()],200);
+        $query = Year::query();
+        if($request->has('search')){
+            $query->where('name','like',"%{$request->search}%");
         }
-        return response()->json(['data' => DB::table('years')->orderBy('name','asc')->get()],200);
+
+        $years = $query->orderBy('name','asc')->get();
+        return response()->json(['data' => $years],200);
     }
 
     /**

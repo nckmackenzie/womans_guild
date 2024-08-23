@@ -17,22 +17,15 @@ class MemberController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $request->query('search');
-        if($query){
-            $members = DB::table('members')
-                                ->where('is_deleted',0)
-                                ->where(function ($qry) use ($query) {
-                                    $qry->where('name', 'like', "%{$query}%")
-                                          ->orWhere('contact', 'like', "%{$query}%");
-                                })
-                                ->orderBy('member_no', 'asc')
-                                ->get();
-        }else{
-            $members = DB::table('members')
-                                ->where('is_deleted',0)
-                                ->orderBy('member_no', 'asc')
-                                ->get();
+        $query = Member::query()->where('is_deleted',0);
+        if($request->has('search')){
+            $query->where(function ($qry) use ($request) {
+                        $qry->where('name', 'like', "%{$request->search}%")
+                            ->orWhere('contact', 'like', "%{$request->search}%");
+                    });
+
         }
+        $members = $query->orderBy('member_no', 'asc')->get();
         return response()->json(['data' => $members],200);
     }
 

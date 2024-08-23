@@ -18,15 +18,12 @@ class VoteheadController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $request->query('search');
-        if($query){
-            $voteheads = DB::table('vote_heads')
-                                  ->where('name','like',"%{$query}%")
-                                  ->orderBy('name', 'asc') 
-                                  ->get();
-        }else{
-            $voteheads = DB::table('vote_heads')->orderBy('name', 'asc')->get();
+        $query = VoteHead::query();
+        if($request->has('search')){
+            $query->where('name','like',"%{$request->search}%");
         }
+
+        $voteheads = $query->orderBy('name', 'asc')->get();
         return response()->json(['status' => 200, 'data' => $voteheads],200);
     }
 
