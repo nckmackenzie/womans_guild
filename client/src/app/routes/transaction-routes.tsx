@@ -10,6 +10,9 @@ const MemberCreateEdit = lazy(
 const ExpensesPage = lazy(
   () => import('@/features/expenses/pages/expenses-page')
 );
+const CreateEditExpense = lazy(
+  () => import('@/features/expenses/pages/create-edit')
+);
 export const transactionRoutes: RouteObject[] = [
   {
     path: 'members',
@@ -40,6 +43,22 @@ export const transactionRoutes: RouteObject[] = [
     element: (
       <Suspense fallback={<PageLoader />}>
         <ExpensesPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: 'expenses/new',
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <CreateEditExpense />
+      </Suspense>
+    ),
+  },
+  {
+    path: 'expenses/edit/:id',
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <CreateEditExpense isEdit />
       </Suspense>
     ),
   },
