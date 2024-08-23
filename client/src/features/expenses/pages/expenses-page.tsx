@@ -10,8 +10,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ErrorComponent } from '@/components/ui/basic-alert';
-
 import ExpenseFilter from '@/features/expenses/components/expense-filter';
+
 import { useTitle } from '@/hooks/use-title';
 import { usePageFetch } from '@/hooks/use-page-fetch';
 import { fetchExpenses } from '@/features/expenses/api';
