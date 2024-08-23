@@ -5,9 +5,7 @@ import { handleMutationError, handleQueryError } from '@/lib/utils';
 export async function fetchMembers(
   queryString: string | undefined
 ): Promise<{ data: Member[] }> {
-  const url = queryString
-    ? `/api/members?search=${queryString}`
-    : '/api/members';
+  const url = queryString ? `/api/members?${queryString}` : '/api/members';
   try {
     const { data } = await axios(url);
 

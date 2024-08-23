@@ -33,7 +33,7 @@ export async function fetchVoteheads(
 ): Promise<{ data: Votehead[] }> {
   try {
     const url = queryString
-      ? '/api/voteheads?search=' + queryString
+      ? '/api/voteheads?' + queryString
       : '/api/voteheads';
     const { data } = await axios.get(url);
 

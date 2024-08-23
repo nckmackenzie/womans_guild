@@ -26,7 +26,7 @@ export async function createYear(values: YearFormValues, id?: string) {
 export async function fetchYears(query?: string): Promise<{ data: Year[] }> {
   try {
     const { data } = await axios.get(
-      query ? `/api/years?search=${query}` : '/api/years'
+      query ? `/api/years?${query}` : '/api/years'
     );
 
     return data;
