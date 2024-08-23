@@ -1,8 +1,13 @@
 import { isAxiosError } from 'axios';
 
 import axios from '@/lib/axios';
-import type { Votehead, VoteheadFormValues } from './votehead.types';
+import type {
+  Votehead,
+  VoteheadFormValues,
+  VoteheadType,
+} from '@/features/voteheads/votehead.types';
 import { flattenErrors } from '@/lib/formatters';
+import { IdWithName } from '@/types';
 
 export async function createUpdateVotehead(
   values: VoteheadFormValues,
@@ -35,6 +40,22 @@ export async function fetchVoteheads(
     const url = queryString
       ? '/api/voteheads?' + queryString
       : '/api/voteheads';
+    const { data } = await axios.get(url);
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('An error occurred while fetching data.');
+  }
+}
+
+export async function fetchVoteheadsByType(
+  voteheadType?: VoteheadType
+): Promise<{ data: IdWithName[] }> {
+  try {
+    const url = voteheadType
+      ? '/api/voteheads/byType?type=' + voteheadType
+      : '/api/voteheads/byType';
     const { data } = await axios.get(url);
 
     return data;
