@@ -106,4 +106,14 @@ class VoteheadController extends Controller
             return response()->json(['status' => 500, 'message' => 'Internal server error.'], 500);
         }
     }
+
+    public function voteheadByType(Request $request)
+    {
+        $query = VoteHead::query()->where('isActive',1);
+        if($request->has('type')){
+            $query->where('voteheadType', $request->type);
+        }
+        $voteheads = $query->select('id','name')->get();
+        return response()->json(['status' => 200, 'data' => $voteheads], 200);
+    }
 }
