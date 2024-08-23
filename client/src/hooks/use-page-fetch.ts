@@ -7,7 +7,9 @@ export function usePageFetch<T>(
   refetchInterval?: number
 ) {
   const [searchParams] = useSearchParams();
-  const queryString = searchParams.get('search') ?? undefined;
+
+  // const queryString = searchParams.get('search') ?? undefined;
+  const queryString = searchParams.toString() ?? undefined;
 
   const { isLoading, error, data } = useQuery({
     queryKey: [queryKey, queryString],

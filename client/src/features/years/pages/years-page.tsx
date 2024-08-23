@@ -21,7 +21,7 @@ import YearsDatatable, {
 
 export default function YearsPage() {
   const [searchParams] = useSearchParams();
-  const queryString = searchParams.get('search') ?? undefined;
+  const queryString = searchParams.toString() ?? undefined;
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['years', queryString],
