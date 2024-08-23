@@ -1,21 +1,16 @@
+import { useSearchParams } from 'react-router-dom';
+
 import CustomSearchSelect from '@/components/ui/custom-search-select';
 import Search from '@/components/ui/search';
 import { Skeleton } from '@/components/ui/skeleton';
-import { fetchVoteheads } from '@/features/voteheads/api';
-import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
+
+import { useFetchVoteheads } from '@/features/expenses/hooks/use-fetch-voteheads';
 
 export default function ExpenseFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { isLoading, data, error } = useQuery({
-    queryKey: ['voteheads'],
-    queryFn: () => fetchVoteheads(),
-  });
+  const { voteheads, error, isLoading } = useFetchVoteheads();
 
-  const voteheads = data?.data
-    ? data.data.map(vt => ({ value: vt.id, label: vt.name.toUpperCase() }))
-    : [];
   if (error) {
     toast.error('Error fetching voteheads');
   }
