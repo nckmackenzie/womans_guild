@@ -20,3 +20,7 @@ export const dateFormatDistance = (
     addSuffix,
   });
 };
+
+export const numberFormatter = (value: string | number) => {
+  return new Intl.NumberFormat('en-KE').format(Number(value));
+};
