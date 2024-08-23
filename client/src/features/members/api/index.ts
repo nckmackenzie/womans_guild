@@ -1,6 +1,7 @@
 import axios from '@/lib/axios';
 import type { MemberFormValues, Member } from '@/features/members/types';
 import { handleMutationError, handleQueryError } from '@/lib/utils';
+import { IdWithName } from '@/types';
 
 export async function fetchMembers(
   queryString: string | undefined
@@ -60,5 +61,16 @@ export async function deleteMember(id: string) {
     await axios.delete(`/api/members/${id}`);
   } catch (error) {
     handleMutationError(error);
+  }
+}
+
+export async function fetchActiveMembers(): Promise<{ data: IdWithName[] }> {
+  try {
+    const { data } = await axios.get('/api/members/activeMembers');
+
+    return data;
+  } catch (error) {
+    console.error('🔥🔥' + error);
+    throw new Error('Something went wrong while fetching members.');
   }
 }
