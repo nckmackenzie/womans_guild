@@ -70,6 +70,11 @@ export function getMenuList(pathname: string): Group[] {
               label: 'Expenses',
               active: pathname.includes('/transactions/expenses'),
             },
+            {
+              href: '/transactions/incomes',
+              label: 'Income',
+              active: pathname.includes('/transactions/incomes'),
+            },
           ],
         },
       ],

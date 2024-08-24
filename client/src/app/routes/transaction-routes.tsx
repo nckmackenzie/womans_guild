@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
-import { PageLoader } from '@/components/ui/loader';
 import { lazy, Suspense } from 'react';
 import { type RouteObject } from 'react-router-dom';
+import { PageLoader } from '@/components/ui/loader';
 
 const MembersPage = lazy(() => import('@/features/members/page/members-page'));
 const MemberCreateEdit = lazy(
@@ -13,6 +13,7 @@ const ExpensesPage = lazy(
 const CreateEditExpense = lazy(
   () => import('@/features/expenses/pages/create-edit')
 );
+const IncomePage = lazy(() => import('@/features/incomes/pages/income-page'));
 export const transactionRoutes: RouteObject[] = [
   {
     path: 'members',
@@ -55,10 +56,10 @@ export const transactionRoutes: RouteObject[] = [
     ),
   },
   {
-    path: 'expenses/edit/:id',
+    path: 'incomes',
     element: (
       <Suspense fallback={<PageLoader />}>
-        <CreateEditExpense isEdit />
+        <IncomePage />
       </Suspense>
     ),
   },
