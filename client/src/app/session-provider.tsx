@@ -1,3 +1,4 @@
+import { PageLoader } from '@/components/ui/loader';
 import { useAuth } from '@/hooks/use-auth';
 import { createContext, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
@@ -16,6 +17,10 @@ export const SessionProvider = ({
 }) => {
   const { isLoading, user } = useAuth({ middleware: 'auth' });
   // const navigate = useNavigate();
+
+  if (isLoading) {
+    return <PageLoader />;
+  }
 
   if (!user) {
     <Navigate to="/login" replace />;
