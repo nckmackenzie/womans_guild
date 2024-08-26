@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\MemberController;
+use App\Http\Controllers\Api\SmsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoteheadController;
 use App\Http\Controllers\Api\YearController;
@@ -24,6 +25,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('members',MemberController::class);
     // Route::get('members/memberNo', [MemberController::class, 'getNextMemberNo']);
     Route::apiResource('expenses',ExpenseController::class);
+
+    Route::post('/send-sms',[SmsController::class,'sendSms']);
 });
 
-// Route::get('/members/activeMembers',[MemberController::class,'activeMembers']);
+// Route::post('/send-sms',[SmsController::class,'sendSms']);
