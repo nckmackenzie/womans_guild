@@ -9,8 +9,10 @@ import {
 } from '@/components/ui/card';
 import SendMessageForm from '@/features/communication/components/send-message-form';
 import { useMembers } from '@/features/members/hooks/use-members';
+import { useTitle } from '@/hooks/use-title';
 
 export default function CommunicationPage() {
+  useTitle('Communication');
   const { error, isLoadingMembers, members } = useMembers();
   return (
     <ContentWrapper title="Communication">
