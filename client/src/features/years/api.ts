@@ -3,6 +3,7 @@ import { isAxiosError } from 'axios';
 import axios from '@/lib/axios';
 import { Year, type YearFormValues } from './types';
 import { flattenErrors } from '@/lib/formatters';
+import { IdWithName } from '@/types';
 
 export async function createYear(values: YearFormValues, id?: string) {
   try {
@@ -43,6 +44,19 @@ export async function fetchYear(id: string): Promise<{ data: Year }> {
     return data;
   } catch (error) {
     console.error(error);
+    throw new Error('An error occurred while fetching data.');
+  }
+}
+
+export async function fetchActiveYears(): Promise<{ data: IdWithName[] }> {
+  try {
+    const { data } = await axios.get('/api/years/activeYears');
+
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
     throw new Error('An error occurred while fetching data.');
   }
 }
