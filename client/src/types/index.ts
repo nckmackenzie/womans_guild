@@ -13,3 +13,5 @@ export interface IdWithName extends WithId, WithName {}
 export interface IsEdit {
   isEdit?: boolean;
 }
+
+export type IsEditRequired = Required<IsEdit>;
