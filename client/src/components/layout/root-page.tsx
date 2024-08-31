@@ -13,6 +13,7 @@ interface RootPageProps extends PropsWithChildren {
   description?: string;
   hasSearch?: boolean;
   searchPlaceholder?: string;
+  className?: string;
 }
 
 export default function RootPage({
@@ -21,9 +22,10 @@ export default function RootPage({
   searchPlaceholder,
   hasSearch = true,
   children,
+  className,
 }: RootPageProps) {
   return (
-    <Card>
+    <Card className={className}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
