@@ -33,7 +33,7 @@ export default function ErrorPage() {
           <div className="space-x-2">
             <Button onClick={() => navigate(-1)}>Go Back</Button>
             <Button variant={'secondary'} asChild>
-              <Link to="/dashboard">Go Home</Link>
+              <Link to="/">Go Home</Link>
             </Button>
           </div>
         </CardContent>
