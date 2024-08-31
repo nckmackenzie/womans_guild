@@ -21,7 +21,9 @@ export const dummyArray = (length: number) => {
 
 export const handleMutationError = (error: unknown) => {
   if (isAxiosError(error)) {
-    const errors = flattenErrors(error.response?.data.errors).join('\n');
+    const errors = error.response?.data.errors
+      ? flattenErrors(error.response?.data.errors).join('\n')
+      : error.response?.data.message;
     console.error('Axios error:', error.response?.data || error.message);
     throw new Error(errors || 'An error occurred while creating the votehead.');
   } else {
