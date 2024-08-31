@@ -99,4 +99,12 @@
   .row-font {
     @apply text-sm uppercase;
   }
+
+  .form-grid {
+    @apply grid grid-cols-1 md:grid-cols-12 gap-4;
+  }
+
+  .form-col {
+    @apply col-span-full md:col-span-6;
+  }
 }
