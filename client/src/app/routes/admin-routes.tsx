@@ -16,67 +16,72 @@ const VoteheadManagement = lazy(
 
 export const adminRoutes: RouteObject[] = [
   {
-    path: '/admin/users',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <UsersPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: '/admin/users/new',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <NewUser />
-      </Suspense>
-    ),
-  },
-  {
-    path: '/admin/years',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <YearsPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: '/admin/years/new',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <NewYear />
-      </Suspense>
-    ),
-  },
-  {
-    path: '/admin/years/edit/:id',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <NewYear />
-      </Suspense>
-    ),
-  },
-  {
-    path: '/admin/voteheads',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <VoteheadPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: '/admin/voteheads/new',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <VoteheadManagement />
-      </Suspense>
-    ),
-  },
-  {
-    path: '/admin/voteheads/edit/:id',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <VoteheadManagement isEdit />
-      </Suspense>
-    ),
+    path: 'admin',
+    children: [
+      {
+        path: 'users',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <UsersPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'users/new',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <NewUser />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'years',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <YearsPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'years/new',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <NewYear />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'years/edit/:id',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <NewYear />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'voteheads',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <VoteheadPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'voteheads/new',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <VoteheadManagement />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'voteheads/edit/:id',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <VoteheadManagement isEdit />
+          </Suspense>
+        ),
+      },
+    ],
   },
 ];

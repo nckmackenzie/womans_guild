@@ -14,53 +14,91 @@ const CreateEditExpense = lazy(
   () => import('@/features/expenses/pages/create-edit')
 );
 const IncomePage = lazy(() => import('@/features/incomes/pages/income-page'));
+
+const BudgetIndexPage = lazy(() => import('@/features/budgets/pages/index'));
+const CreateEditBudget = lazy(
+  () => import('@/features/budgets/pages/create-edit')
+);
+
+const CommunicationPage = lazy(
+  () => import('@/features/communication/pages/index')
+);
 export const transactionRoutes: RouteObject[] = [
   {
-    path: 'members',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <MembersPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: 'members/new',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <MemberCreateEdit />
-      </Suspense>
-    ),
-  },
-  {
-    path: 'members/edit/:id',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <MemberCreateEdit isEdit />
-      </Suspense>
-    ),
-  },
-  {
-    path: 'expenses',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <ExpensesPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: 'expenses/new',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <CreateEditExpense />
-      </Suspense>
-    ),
-  },
-  {
-    path: 'incomes',
-    element: (
-      <Suspense fallback={<PageLoader />}>
-        <IncomePage />
-      </Suspense>
-    ),
+    path: 'transactions',
+    children: [
+      {
+        path: 'members',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MembersPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'members/new',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemberCreateEdit />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'members/edit/:id',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemberCreateEdit isEdit />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'expenses',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ExpensesPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'expenses/new',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CreateEditExpense />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'incomes',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <IncomePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'budgets',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BudgetIndexPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'budgets/new',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CreateEditBudget />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'communication',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CommunicationPage />
+          </Suspense>
+        ),
+      },
+    ],
   },
 ];
