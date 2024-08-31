@@ -95,4 +95,8 @@
   .delete-menu-item {
     @apply relative w-full flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm text-destructive outline-none transition-colors hover:bg-secondary focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50;
   }
+
+  .row-font {
+    @apply text-sm uppercase;
+  }
 }
