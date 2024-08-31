@@ -14,6 +14,8 @@ interface RootPageProps extends PropsWithChildren {
   hasSearch?: boolean;
   searchPlaceholder?: string;
   className?: string;
+  filterComponent?: React.ReactNode;
+  searchWithFilter?: boolean;
 }
 
 export default function RootPage({
@@ -22,6 +24,8 @@ export default function RootPage({
   searchPlaceholder,
   hasSearch = true,
   children,
+  filterComponent,
+  searchWithFilter,
   className,
 }: RootPageProps) {
   return (
@@ -31,7 +35,15 @@ export default function RootPage({
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        {hasSearch && <Search placeholder={searchPlaceholder || 'Search...'} />}
+        {hasSearch && !searchWithFilter && (
+          <Search placeholder={searchPlaceholder || 'Search...'} />
+        )}
+        {searchWithFilter && (
+          <div className="flex flex-col md:flex-row md:justify-between gap-4 md:items-center">
+            <Search placeholder={searchPlaceholder || 'Search...'} />
+            {filterComponent}
+          </div>
+        )}
         {children}
       </CardContent>
     </Card>
