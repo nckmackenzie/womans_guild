@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { PasswordInput } from '@/components/ui/password-input';
 import { ErrorComponent } from '@/components/ui/basic-alert';
 
 import { cn } from '@/lib/utils';
@@ -45,7 +46,7 @@ export default function LoginForm() {
       // console.log(data);
     },
     onSuccess: () => {
-      navigate('/dashboard');
+      navigate('/');
     },
     onError: error => {
       if (isAxiosError(error)) {
@@ -96,6 +97,7 @@ export default function LoginForm() {
                           {...field}
                           placeholder="Enter phone number"
                           disabled={isPending}
+                          autoComplete="off"
                         />
                       </FormControl>
                       <FormMessage />
@@ -120,7 +122,7 @@ export default function LoginForm() {
                         </Link>
                       </div>
                       <FormControl>
-                        <Input
+                        <PasswordInput
                           {...field}
                           placeholder="Enter your password"
                           type="password"
