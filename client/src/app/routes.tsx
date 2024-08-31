@@ -4,9 +4,9 @@ import AdminPanelLayout from '@/components/layout/panel-layout';
 import ErrorPage from '@/components/ui/error-page';
 import DashboardPage from '@/features/dashboard/pages/dashboard-page';
 import LoginPage from '@/features/login/pages/login-page';
-import { adminRoutes } from './routes/admin-routes';
-import { transactionRoutes } from './routes/transaction-routes';
-import { SessionProvider } from './session-provider';
+import { adminRoutes } from '@/app/routes/admin-routes';
+import { transactionRoutes } from '@/app/routes/transaction-routes';
+import { SessionProvider } from '@/app/session-provider';
 
 export const router = createBrowserRouter([
   {
