@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BudgetController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\SmsController;
@@ -19,14 +20,15 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('members/memberNo', [MemberController::class, 'getNextMemberNo']);
     Route::get('members/activeMembers', [MemberController::class, 'activeMembers']);
     Route::get('voteheads/byType',[VoteheadController::class,'voteheadByType']);
+    Route::get('years/activeYears', [YearController::class, 'activeYears']);
 
     Route::apiResource('years',YearController::class);
     Route::apiResource('voteheads',VoteheadController::class);
     Route::apiResource('members',MemberController::class);
-    // Route::get('members/memberNo', [MemberController::class, 'getNextMemberNo']);
     Route::apiResource('expenses',ExpenseController::class);
+    Route::apiResource('budgets',BudgetController::class);
 
     Route::post('/send-sms',[SmsController::class,'sendSms']);
 });
 
-// Route::post('/send-sms',[SmsController::class,'sendSms']);
+Route::get('/test',[BudgetController::class,'index']);
