@@ -22,5 +22,11 @@ export const dateFormatDistance = (
 };
 
 export const numberFormatter = (value: string | number) => {
-  return new Intl.NumberFormat('en-KE').format(Number(value));
+  return new Intl.NumberFormat('en-KE', { maximumFractionDigits: 2 }).format(
+    Number(value)
+  );
+};
+
+export const dateFormat = (date: Date | string) => {
+  return format(new Date(date), 'yyyy-MM-dd');
 };
