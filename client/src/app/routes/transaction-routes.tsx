@@ -14,6 +14,9 @@ const CreateEditExpense = lazy(
   () => import('@/features/expenses/pages/create-edit')
 );
 const IncomePage = lazy(() => import('@/features/incomes/pages/income-page'));
+const CreateEditIncome = lazy(
+  () => import('@/features/incomes/pages/create-edit')
+);
 
 const BudgetIndexPage = lazy(() => import('@/features/budgets/pages/index'));
 const CreateEditBudget = lazy(
@@ -72,6 +75,22 @@ export const transactionRoutes: RouteObject[] = [
         element: (
           <Suspense fallback={<PageLoader />}>
             <IncomePage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'incomes/new',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CreateEditIncome />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'incomes/edit/:id',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CreateEditIncome isEdit />
           </Suspense>
         ),
       },
