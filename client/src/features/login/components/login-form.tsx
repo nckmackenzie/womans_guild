@@ -125,7 +125,6 @@ export default function LoginForm() {
                         <PasswordInput
                           {...field}
                           placeholder="Enter your password"
-                          type="password"
                           disabled={isPending}
                         />
                       </FormControl>
