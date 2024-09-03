@@ -9,7 +9,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
-      <Toaster />
+      <Toaster position="top-center" />
     </QueryClientProvider>
     // </ThemeProvider>
   );
