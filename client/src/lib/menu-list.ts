@@ -1,4 +1,10 @@
-import { LayoutGrid, LucideIcon, Shield, Workflow } from 'lucide-react';
+import {
+  ClipboardMinus,
+  LayoutGrid,
+  LucideIcon,
+  Shield,
+  Workflow,
+} from 'lucide-react';
 
 type Submenu = {
   href: string;
@@ -84,6 +90,39 @@ export function getMenuList(pathname: string): Group[] {
               href: '/transactions/communication',
               label: 'Communication',
               active: pathname.includes('/transactions/communication'),
+            },
+          ],
+        },
+        {
+          href: '',
+          label: 'Reports',
+          active: pathname.includes('/reports'),
+          icon: ClipboardMinus,
+          submenus: [
+            {
+              href: '/reports/members',
+              label: 'Members Report',
+              active: pathname.includes('/reports/members'),
+            },
+            {
+              href: '/reports/expenses',
+              label: 'Expenses Report',
+              active: pathname.includes('/reports/expenses'),
+            },
+            {
+              href: '/reports/incomes',
+              label: 'Incomes Report',
+              active: pathname.includes('/reports/incomes'),
+            },
+            {
+              href: '/reports/budget-expense',
+              label: 'Budget Vs Expense',
+              active: pathname.includes('/reports/budget-expense'),
+            },
+            {
+              href: '/reports/income-statement',
+              label: 'Income Statement',
+              active: pathname.includes('/reports/income-statement'),
             },
           ],
         },
