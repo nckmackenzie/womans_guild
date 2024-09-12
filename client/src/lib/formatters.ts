@@ -30,3 +30,7 @@ export const numberFormatter = (value: string | number) => {
 export const dateFormat = (date: Date | string) => {
   return format(new Date(date), 'yyyy-MM-dd');
 };
+
+export const reportDate = (date: Date | string) => {
+  return format(new Date(date), 'dd-MMM-yyyy');
+};
