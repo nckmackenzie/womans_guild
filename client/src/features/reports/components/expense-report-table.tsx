@@ -5,6 +5,7 @@ import { DataTable } from '@/components/ui/datatable';
 
 import type { ExpenseReportItem } from '@/features/reports/types';
 import { numberFormatter, reportDate } from '@/lib/formatters';
+import { useExportExcel } from '@/hooks/use-excel';
 
 const columns: ColumnDef<ExpenseReportItem>[] = [
   {
@@ -42,6 +43,13 @@ const columns: ColumnDef<ExpenseReportItem>[] = [
       <div className="row-font">{row.original.paymentReference}</div>
     ),
   },
+  {
+    accessorKey: 'memberName',
+    header: 'Expensed To',
+    cell: ({ row }) => (
+      <div className="row-font">{row.original.memberName}</div>
+    ),
+  },
 ];
 
 export default function ExpenseReportTable({
@@ -50,10 +58,13 @@ export default function ExpenseReportTable({
   data: ExpenseReportItem[];
 }) {
   const total = data.reduce((acc, curr) => acc + Number(curr.amount), 0);
+  const exportToExcel = useExportExcel(`expenses_report_${Date.now()}`);
 
   return (
     <div className="space-y-4">
-      <Button variant="excel">Export To Excel</Button>
+      <Button variant="excel" onClick={() => exportToExcel(data)}>
+        Export To Excel
+      </Button>
       <DataTable
         columns={columns}
         data={data}
