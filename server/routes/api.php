@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\BudgetController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\IncomeController;
 use App\Http\Controllers\Api\MemberController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SmsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoteheadController;
@@ -31,6 +32,14 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('budgets',BudgetController::class);
 
     Route::post('/send-sms',[SmsController::class,'sendSms']);
+
+    Route::controller(ReportController::class)->group(function() {
+        Route::get('/reports/members','members');
+        Route::get('/reports/expenses','expenses');
+    });
 });
 
-Route::get('/test',[IncomeController::class,'index']);
+// Route::get('/test',[IncomeController::class,'index']);
+// Route::controller(ReportController::class)->group(function() {
+//     Route::get('/reports/expenses','expenses');
+// });
