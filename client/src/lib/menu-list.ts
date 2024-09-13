@@ -72,6 +72,11 @@ export function getMenuList(pathname: string): Group[] {
               active: pathname.includes('/transactions/members'),
             },
             {
+              href: '/transactions/members/promotion',
+              label: 'Member Promotion',
+              active: pathname.includes('/transactions/members/promotion'),
+            },
+            {
               href: '/transactions/expenses',
               label: 'Expenses',
               active: pathname.includes('/transactions/expenses'),
