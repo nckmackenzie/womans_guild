@@ -3,18 +3,19 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
-import { useFetchVoteheads } from '@/features/voteheads/hooks/use-fetch-voteheads';
-import { useSetReportParams } from '@/hooks/use-set-report-parameters';
-import type {
-  IncomeReportParams,
-  IncomeReportType,
-} from '@/features/reports/types';
 import { ErrorComponent } from '@/components/ui/basic-alert';
 import FormGroup from '@/components/ui/form-group';
 import { Label } from '@/components/ui/label';
 import CustomSearchSelect from '@/components/ui/custom-search-select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+
+import { useFetchVoteheads } from '@/features/voteheads/hooks/use-fetch-voteheads';
+import { useSetReportParams } from '@/hooks/use-set-report-parameters';
+import type {
+  IncomeReportParams,
+  IncomeReportType,
+} from '@/features/reports/types';
 
 const schema = z
   .object({
