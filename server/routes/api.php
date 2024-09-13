@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/users',[UserController::class,'index']);
     Route::get('members/memberNo', [MemberController::class, 'getNextMemberNo']);
     Route::get('members/activeMembers', [MemberController::class, 'activeMembers']);
+    Route::patch('members/memberPromotion', [MemberController::class, 'memberPromotion']);
     Route::get('voteheads/byType',[VoteheadController::class,'voteheadByType']);
     Route::get('years/activeYears', [YearController::class, 'activeYears']);
 
