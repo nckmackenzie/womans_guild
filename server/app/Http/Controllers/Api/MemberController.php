@@ -17,6 +17,13 @@ class MemberController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->membership_type){
+            $members = Member::where('membership_type',$request->membership_type)
+                               ->where('is_deleted',0)
+                               ->get(['id','name']);
+            return response()->json(['data' => $members],200);
+        }
+
         $query = Member::query()->where('is_deleted',0);
         if($request->has('search')){
             $query->where(function ($qry) use ($request) {
@@ -53,6 +60,7 @@ class MemberController extends Controller
             'id_number' => $request->id_number,
             'birth_date' => $request->birth_date ? date('Y-m-d', strtotime($request->birth_date)) : null,
             'joining_date' => date('Y-m-d', strtotime($request->joining_date)),
+            'membership_type' => $request->membership_type,
             'status' => $request->status
         ]);
         if(!$member) return response()->json(['message'=> 'Something went wrong while creating user.'],500);
@@ -98,6 +106,7 @@ class MemberController extends Controller
                 'id_number' => $request->id_number,
                 'birth_date' => $request->birth_date ? date('Y-m-d', strtotime($request->birth_date)) : null,
                 'joining_date' => date('Y-m-d', strtotime($request->joining_date)),
+                'membership_type' => $request->membership_type,
                 'status' => $request->status
             ]);
 
@@ -157,5 +166,35 @@ class MemberController extends Controller
         $members = Member::where('status', 'active')->where('is_deleted',0)
                             ->select('id','name')->orderBy('name','asc')->get();
         return response()->json(['data' => $members],200);
+    }
+
+    public function memberPromotion(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'promotion_date' => ['required','date','before_or_equal:today'],
+            'member_ids' => ['required','array']
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['errors' => $validator->errors()],422);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            
+            foreach($request->member_ids as $member_id){
+                Member::whereCuid($member_id)->update(['membership_type' => 'full','promotion_date' => date('Y-m-d',strtotime($request->promotion_date))]);
+            }
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+           DB::rollBack();
+           Log::error($e->getMessage());
+           return response()->json(['status' => 500, 'message' => 'Internal server error.'], 500);
+        }
+
+        
     }
 }
