@@ -12,6 +12,14 @@ const ExpenseReportPage = lazy(
   () => import('@/features/reports/pages/expense-report')
 );
 
+const IncomeReportPage = lazy(
+  () => import('@/features/reports/pages/income-report')
+);
+
+const BudgetExpenseReport = lazy(
+  () => import('@/features/reports/pages/budget-expense')
+);
+
 export const reportRoutes: RouteObject[] = [
   {
     path: 'reports',
@@ -29,6 +37,22 @@ export const reportRoutes: RouteObject[] = [
         element: (
           <Suspense fallback={<PageLoader />}>
             <ExpenseReportPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'incomes',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <IncomeReportPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'budget-expense',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BudgetExpenseReport />
           </Suspense>
         ),
       },
