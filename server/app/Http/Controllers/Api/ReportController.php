@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Expense;
 use App\Models\Income;
 use App\Models\Member;
+use App\Models\Year;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
@@ -65,5 +67,23 @@ class ReportController extends Controller
         }
         $incomes = $query->orderBy('date','asc')->get();
         return response()->json(['data' => $incomes],200);
+    }
+
+    public function budgetExpense(Request $request)
+    {
+
+        if(!isset($request->year_id)){
+            return response()->json(['message' => 'Select financial year.'],422);
+        }
+
+        $year = Year::find($request->year_id);
+        
+        if(!$year){
+            return response()->json(['message' => 'Invalid financial year.'],422);
+        }
+
+        $results = DB::select('CALL sp_budget_expense(?)',[$request->year_id]);
+
+        return response()->json(['data' => $results],200);
     }
 }
