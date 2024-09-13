@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import {
+  memberContributionFormSchema,
   memberPromotionSchema,
   membersFormSchema,
 } from '@/features/members/utils/schema';
@@ -16,3 +17,7 @@ export interface Member extends MemberFormValues {
 }
 
 export type MemberPromotionValues = z.infer<typeof memberPromotionSchema>;
+
+export type MemberContributionValues = z.infer<
+  typeof memberContributionFormSchema
+>;
