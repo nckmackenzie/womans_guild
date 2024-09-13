@@ -1,5 +1,10 @@
 import axios from '@/lib/axios';
-import type { MemberFormValues, Member } from '@/features/members/types';
+import type {
+  MemberFormValues,
+  Member,
+  MemberShipType,
+  MemberPromotionValues,
+} from '@/features/members/types';
 import { handleMutationError, handleQueryError } from '@/lib/utils';
 import { IdWithName } from '@/types';
 
@@ -71,6 +76,32 @@ export async function fetchActiveMembers(): Promise<{ data: IdWithName[] }> {
     return data;
   } catch (error) {
     console.error('🔥🔥' + error);
+    throw new Error('Something went wrong while fetching members.');
+  }
+}
+
+export async function fetchMembersByType(
+  membershipType: MemberShipType
+): Promise<{ data: IdWithName[] }> {
+  try {
+    const { data } = await axios.get(
+      '/api/members?membershipType=' + membershipType
+    );
+
+    return data;
+  } catch (error) {
+    console.error('🔥🔥' + error);
+    throw new Error('Something went wrong while fetching members.');
+  }
+}
+
+export async function memberPromotion(values: MemberPromotionValues) {
+  try {
+    await axios.patch('/api/members/memberPromotion', values);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('🔥🔥' + error.message);
+    }
     throw new Error('Something went wrong while fetching members.');
   }
 }
