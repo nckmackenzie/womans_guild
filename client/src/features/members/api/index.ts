@@ -4,6 +4,7 @@ import type {
   Member,
   MemberShipType,
   MemberPromotionValues,
+  MemberContributionValues,
 } from '@/features/members/types';
 import { handleMutationError, handleQueryError } from '@/lib/utils';
 import { IdWithName } from '@/types';
@@ -103,5 +104,33 @@ export async function memberPromotion(values: MemberPromotionValues) {
       console.error('🔥🔥' + error.message);
     }
     throw new Error('Something went wrong while fetching members.');
+  }
+}
+
+export async function checkYearContribution(
+  yearId: string
+): Promise<{ success: boolean }> {
+  try {
+    const { data } = await axios.get(`/api/yearlyContributions/${yearId}`);
+
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('🔥🔥' + error.message);
+    }
+    throw new Error('Something went wrong while fetching members.');
+  }
+}
+
+export async function createYearlyContribution(
+  values: MemberContributionValues
+) {
+  try {
+    await axios.post('/api/yearlyContributions', values);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('🔥🔥' + error.message);
+    }
+    handleMutationError(error);
   }
 }
