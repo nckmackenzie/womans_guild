@@ -36,10 +36,12 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::controller(ReportController::class)->group(function() {
         Route::get('/reports/members','members');
         Route::get('/reports/expenses','expenses');
+        Route::get('/reports/incomes','incomes');
+        Route::get('/reports/budgetExpense','budgetExpense');
     });
 });
 
 // Route::get('/test',[IncomeController::class,'index']);
 // Route::controller(ReportController::class)->group(function() {
-//     Route::get('/reports/expenses','expenses');
+//     Route::get('/reports/budgetExpense','budgetExpense');
 // });
