@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\SmsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VoteheadController;
 use App\Http\Controllers\Api\YearController;
+use App\Http\Controllers\Api\YearlyContributionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('expenses',ExpenseController::class);
     Route::apiResource('incomes',IncomeController::class);
     Route::apiResource('budgets',BudgetController::class);
+    Route::apiResource('yearlyContributions',YearlyContributionController::class)->only(['store','show']);
 
     Route::post('/send-sms',[SmsController::class,'sendSms']);
 
