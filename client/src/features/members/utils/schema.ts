@@ -46,3 +46,11 @@ export const memberPromotionSchema = z
       });
     }
   });
+
+export const memberContributionFormSchema = z.object({
+  yearId: z.string().min(1, 'Select financial year'),
+  amount: z.coerce
+    .number({ invalid_type_error: 'Amount has to be a number' })
+    .min(1, 'Amount is required')
+    .positive(),
+});
