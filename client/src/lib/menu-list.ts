@@ -58,6 +58,11 @@ export function getMenuList(pathname: string): Group[] {
               label: 'Voteheads',
               active: pathname.includes('/admin/voteheads'),
             },
+            {
+              href: '/admin/member-contributions',
+              label: 'Set Member Contribution',
+              active: pathname.includes('/admin/member-contributions'),
+            },
           ],
         },
         {

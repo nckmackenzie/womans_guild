@@ -7,6 +7,9 @@ const UsersPage = lazy(() => import('@/features/users/pages/users-page'));
 const NewUser = lazy(() => import('@/features/users/pages/new-user'));
 const YearsPage = lazy(() => import('@/features/years/pages/years-page'));
 const NewYear = lazy(() => import('@/features/years/pages/new-year'));
+const MemberContribution = lazy(
+  () => import('@/features/members/page/member-contribution')
+);
 const VoteheadPage = lazy(
   () => import('@/features/voteheads/pages/votehead-page')
 );
@@ -79,6 +82,14 @@ export const adminRoutes: RouteObject[] = [
         element: (
           <Suspense fallback={<PageLoader />}>
             <VoteheadManagement isEdit />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'member-contributions',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemberContribution />
           </Suspense>
         ),
       },
