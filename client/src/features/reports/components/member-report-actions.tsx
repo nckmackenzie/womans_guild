@@ -61,12 +61,7 @@ export default function MemberReport() {
       toast.error('From date cannot be greater than to date');
       return;
     }
-    setReportParams(reportDetails, {
-      from: '',
-      to: '',
-      status: '',
-      reportType: '',
-    });
+    setReportParams(reportDetails, Object.keys(reportDetails));
 
     // refetch();
   }
