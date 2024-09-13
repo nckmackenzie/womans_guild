@@ -24,6 +24,7 @@ import { membersFormSchema } from '@/features/members/utils/schema';
 import {
   MEMBER_STATUS,
   memberNoFormatter,
+  MEMBERSHIP_TYPES,
 } from '@/features/members/utils/utils';
 import { useError } from '@/hooks/use-error';
 import { ErrorComponent } from '@/components/ui/basic-alert';
@@ -49,6 +50,7 @@ export function MemberForm({ isEdit, member, memberNo }: MemberFormProps) {
       idNumber: '',
       name: '',
       status: 'active',
+      membershipType: 'follower',
     },
     resolver: zodResolver(membersFormSchema),
   });
@@ -188,9 +190,27 @@ export function MemberForm({ isEdit, member, memberNo }: MemberFormProps) {
           />
           <FormField
             control={form.control}
+            name="membershipType"
+            render={({ field }) => (
+              <FormItem className="col-span-full md:col-span-6">
+                <FormLabel>Membership Type</FormLabel>
+                <FormControl>
+                  <CustomSearchSelect
+                    options={MEMBERSHIP_TYPES}
+                    value={field.value}
+                    onChange={field.onChange}
+                    disabled={isPending}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="status"
             render={({ field }) => (
-              <FormItem className="col-span-full">
+              <FormItem className="col-span-full md:col-span-6">
                 <FormLabel>Member Status</FormLabel>
                 <FormControl>
                   <CustomSearchSelect
