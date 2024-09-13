@@ -10,3 +10,8 @@ export const MEMBER_STATUS: Option[] = [
   { value: 'departed', label: 'Departed' },
   { value: 'deceased', label: 'Deceased' },
 ];
+
+export const MEMBERSHIP_TYPES = [
+  { value: 'full', label: 'Full' },
+  { value: 'follower', label: 'Follower' },
+];
