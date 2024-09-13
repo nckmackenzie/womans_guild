@@ -13,4 +13,36 @@ export const membersFormSchema = z.object({
   status: z
     .enum(['active', 'inactive', 'departed', 'deceased'])
     .default('active'),
+  membershipType: z.enum(['full', 'follower']).default('follower'),
 });
+
+export const memberPromotionSchema = z
+  .object({
+    memberIds: z.array(z.string(), {
+      required_error: 'Select at least one member.',
+    }),
+    promotionDate: z.coerce.date({
+      required_error: 'Select promotion date.',
+      invalid_type_error: 'Select promotion date.',
+    }),
+  })
+  .superRefine(({ memberIds, promotionDate }, ctx) => {
+    if (memberIds.length === 0) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Select at least one member.',
+      });
+    }
+    if (!promotionDate) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Select promotion date.',
+      });
+    }
+    if (promotionDate > new Date()) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Promotion date cannot be in the future.',
+      });
+    }
+  });
