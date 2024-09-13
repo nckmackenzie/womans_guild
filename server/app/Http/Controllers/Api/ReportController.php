@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Expense;
+use App\Models\Income;
 use App\Models\Member;
 use Illuminate\Http\Request;
 
@@ -47,5 +48,22 @@ class ReportController extends Controller
         $expenses = $query->orderBy('date','asc')->get();
         return response()->json(['data' => $expenses],200);
     }
-        
+    
+    public function incomes(Request $request)
+    {
+        $query = Income::query()->select('date',
+                                         'amount',
+                                         'description',
+                                         'members.name as member_name',
+                                         'vote_heads.name as votehead_name')
+                                 ->join('vote_heads','vote_heads.id','incomes.votehead_id')
+                                 ->leftJoin('members','members.id','incomes.member_id')
+                                 ->where('date','>=',date('Y-m-d',strtotime($request->from)))
+                                 ->where('date','<=',date('Y-m-d',strtotime($request->to)));
+        if($request->report_type === 'by-votehead'){
+            $query->where('votehead_id',$request->votehead);
+        }
+        $incomes = $query->orderBy('date','asc')->get();
+        return response()->json(['data' => $incomes],200);
+    }
 }
