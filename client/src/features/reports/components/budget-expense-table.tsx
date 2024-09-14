@@ -6,6 +6,7 @@ import { DataTable } from '@/components/ui/datatable';
 import { TableCell } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { useExportExcel } from '@/hooks/use-excel';
+import { cn } from '@/lib/utils';
 
 const columns: ColumnDef<BudgetExpenseReportItem>[] = [
   {
@@ -31,6 +32,24 @@ const columns: ColumnDef<BudgetExpenseReportItem>[] = [
       </div>
     ),
   },
+  {
+    id: 'variance',
+    header: () => <div className="row-font text-right">Balance</div>,
+    cell: ({ row }) => {
+      const variance =
+        row.original.budgetedAmount - row.original.expensedAmount;
+      return (
+        <div
+          className={cn(
+            'row-font text-right font-semibold',
+            variance < 0 ? 'text-red-500' : 'text-green-500'
+          )}
+        >
+          {numberFormatter(variance)}
+        </div>
+      );
+    },
+  },
 ];
 export default function BudgetExpenseTable({
   data,
@@ -38,6 +57,9 @@ export default function BudgetExpenseTable({
   data: BudgetExpenseReportItem[];
 }) {
   const exportToExcel = useExportExcel();
+  const totalBudgeted = data.reduce((a, b) => a + Number(b.budgetedAmount), 0);
+  const totalExpensed = data.reduce((a, b) => a + Number(b.expensedAmount), 0);
+  const totalVariance = totalBudgeted - totalExpensed;
   return (
     <div className="space-y-4">
       <Button variant="excel" onClick={() => exportToExcel(data)}>
@@ -51,14 +73,18 @@ export default function BudgetExpenseTable({
           <>
             <TableCell className="font-bold">Total</TableCell>
             <TableCell className="text-right text-bold">
-              {numberFormatter(
-                data.reduce((a, b) => a + Number(b.budgetedAmount), 0)
-              )}
+              {numberFormatter(totalBudgeted)}
             </TableCell>
             <TableCell className="text-right text-bold">
-              {numberFormatter(
-                data.reduce((a, b) => a + Number(b.expensedAmount), 0)
+              {numberFormatter(totalExpensed)}
+            </TableCell>
+            <TableCell
+              className={cn(
+                'text-right text-bold',
+                totalVariance < 0 ? 'text-red-500' : 'text-green-500'
               )}
+            >
+              {numberFormatter(totalVariance)}
             </TableCell>
           </>
         }
