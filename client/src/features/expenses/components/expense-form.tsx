@@ -56,7 +56,7 @@ export default function ExpenseForm({ isEdit }: IsEdit) {
       attachmentPath: '',
       reference: '',
       voteheadId: '',
-      paymentMethod: 'cash',
+      paymentMethod: 'cheque',
       paymentReference: '',
       amount: 0,
     },
