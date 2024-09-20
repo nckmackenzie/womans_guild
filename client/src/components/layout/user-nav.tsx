@@ -27,7 +27,7 @@ export default function UserNav() {
   const navigate = useNavigate();
   const { isPending, mutate } = useMutation({
     mutationFn: async () => {
-      await axios.post('/logout');
+      await axios.post('/api/logout');
     },
     onSuccess: () => {
       queryClient.removeQueries();
