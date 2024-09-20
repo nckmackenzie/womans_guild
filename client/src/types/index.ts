@@ -15,3 +15,8 @@ export interface IsEdit {
 }
 
 export type IsEditRequired = Required<IsEdit>;
+
+export interface User extends IdWithName {
+  contact: string;
+  avatarUrl: string | null;
+}
