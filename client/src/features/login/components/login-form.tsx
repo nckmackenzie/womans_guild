@@ -42,7 +42,7 @@ export default function LoginForm() {
   const { isPending, mutate: login } = useMutation({
     mutationFn: async (values: LoginFormValues) => {
       await getCsrfToken();
-      await axios.post('/login', values);
+      await axios.post('/api/login', values);
       // console.log(data);
     },
     onSuccess: () => {
