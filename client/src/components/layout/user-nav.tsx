@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
-import { LogOut } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { KeyRound, LogOut } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -22,8 +21,12 @@ import { toast } from 'sonner';
 
 import axios from '@/lib/axios';
 
+import { User } from '@/types';
+
 export default function UserNav() {
   const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(['user']) as User;
+  console.log();
   const navigate = useNavigate();
   const { isPending, mutate } = useMutation({
     mutationFn: async () => {
@@ -63,14 +66,22 @@ export default function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">John Doe</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              johndoe@example.com
+            <p className="text-sm font-medium leading-none capitalize">
+              {user.name || 'John Doe'}
             </p>
+            {/* <p className="text-xs leading-none text-muted-foreground">
+              johndoe@example.com
+            </p> */}
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <Link to="/change-password" className="w-full">
+            <KeyRound className="w-4 h-4 mr-3 text-muted-foreground" />
+            <span>Change Password</span>
+          </Link>
+        </DropdownMenuItem>
+        {/* <DropdownMenuSeparator />
+        <DropdownMenuSeparator /> */}
         <DropdownMenuItem
           className="hover:cursor-pointer"
           onClick={() => mutate()}
