@@ -1,11 +1,12 @@
 import { PageLoader } from '@/components/ui/loader';
 import { useAuth } from '@/hooks/use-auth';
+import { User } from '@/types';
 import { createContext, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 
 interface SessionProps {
   isLoading: boolean;
-  user: { email: string };
+  user: User;
 }
 
 const SessionContext = createContext<SessionProps | null>(null);
