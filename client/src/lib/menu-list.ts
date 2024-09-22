@@ -92,6 +92,11 @@ export function getMenuList(pathname: string): Group[] {
               active: pathname.includes('/transactions/incomes'),
             },
             {
+              href: '/transactions/incomes-projection',
+              label: 'Income Projection',
+              active: pathname.includes('/transactions/incomes-projection'),
+            },
+            {
               href: '/transactions/budgets',
               label: 'Budgets',
               active: pathname.includes('/transactions/budgets'),
