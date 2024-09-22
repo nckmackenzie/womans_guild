@@ -20,6 +20,7 @@ export const changePasswordFormSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'Passwords do not match',
+        path: ['confirmPassword'],
       });
     }
   });
