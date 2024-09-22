@@ -33,6 +33,7 @@ export default function UserNav() {
     },
     onSuccess: () => {
       queryClient.removeQueries();
+      localStorage.removeItem('token');
       navigate('/login');
     },
     onError: error => {
