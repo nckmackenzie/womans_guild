@@ -22,11 +22,11 @@ import { toast } from 'sonner';
 import axios from '@/lib/axios';
 
 import { User } from '@/types';
+import { getInitials } from '@/lib/utils';
 
 export default function UserNav() {
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(['user']) as User;
-  console.log();
   const navigate = useNavigate();
   const { isPending, mutate } = useMutation({
     mutationFn: async () => {
@@ -54,7 +54,9 @@ export default function UserNav() {
               >
                 <Avatar className="h-8 w-8">
                   <AvatarImage src="#" alt="Avatar" />
-                  <AvatarFallback className="bg-transparent">JD</AvatarFallback>
+                  <AvatarFallback className="bg-transparent">
+                    {user?.name ? getInitials(user.name) : 'u'}
+                  </AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
@@ -67,7 +69,7 @@ export default function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none capitalize">
-              {user.name || 'John Doe'}
+              {user?.name || 'John Doe'}
             </p>
             {/* <p className="text-xs leading-none text-muted-foreground">
               johndoe@example.com
