@@ -8,7 +8,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -53,7 +52,7 @@ export default function UserNav() {
                 className="relative h-8 w-8 rounded-full"
               >
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src="#" alt="Avatar" />
+                  <AvatarImage src="/user.png" alt="Avatar" />
                   <AvatarFallback className="bg-transparent">
                     {user?.name ? getInitials(user.name) : 'u'}
                   </AvatarFallback>
@@ -66,16 +65,6 @@ export default function UserNav() {
       </TooltipProvider>
 
       <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none capitalize">
-              {user?.name || 'John Doe'}
-            </p>
-            {/* <p className="text-xs leading-none text-muted-foreground">
-              johndoe@example.com
-            </p> */}
-          </div>
-        </DropdownMenuLabel>
         <DropdownMenuItem asChild className="cursor-pointer">
           <Link to="/change-password" className="w-full">
             <KeyRound className="w-4 h-4 mr-3 text-muted-foreground" />
