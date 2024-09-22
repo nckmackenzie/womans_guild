@@ -8,6 +8,7 @@ import { adminRoutes } from '@/app/routes/admin-routes';
 import { transactionRoutes } from '@/app/routes/transaction-routes';
 import { SessionProvider } from '@/app/session-provider';
 import { reportRoutes } from '@/app/routes/reports-route';
+import ChangePasswordPage from '@/features/global/pages/change-password';
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       ...adminRoutes,
       ...transactionRoutes,
       ...reportRoutes,
+      {
+        path: '/change-password',
+        element: <ChangePasswordPage />,
+      },
     ],
   },
 ]);

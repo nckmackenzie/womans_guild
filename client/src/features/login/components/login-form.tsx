@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { isAxiosError } from 'axios';
+import { type AxiosResponse, isAxiosError } from 'axios';
 import { useMutation } from '@tanstack/react-query';
 
 import { Button } from '@/components/ui/button';
@@ -22,11 +22,11 @@ import { ErrorComponent } from '@/components/ui/basic-alert';
 import { cn } from '@/lib/utils';
 import { LoginFormValues } from '../types';
 import { loginSchema } from '../utils/schema';
-import { getCsrfToken } from '@/lib/auth';
+// import { getCsrfToken } from '@/lib/auth';
 import axios from '@/lib/axios';
-import { ServerError } from '@/types';
+import type { User } from '@/types';
 import { useError } from '@/hooks/use-error';
-import { flattenErrors } from '@/lib/formatters';
+// import { flattenErrors } from '@/lib/formatters';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -41,16 +41,20 @@ export default function LoginForm() {
 
   const { isPending, mutate: login } = useMutation({
     mutationFn: async (values: LoginFormValues) => {
-      await getCsrfToken();
-      await axios.post('/login', values);
-      // console.log(data);
+      // await getCsrfToken();
+      const response: AxiosResponse<{ user: User; token: string }> =
+        await axios.post('/api/login', values);
+
+      return response.data;
     },
-    onSuccess: () => {
+    onSuccess: data => {
+      localStorage.setItem('token', data.token);
       navigate('/');
     },
     onError: error => {
       if (isAxiosError(error)) {
-        onError(flattenErrors(error.response?.data.errors as ServerError));
+        onError(error.response?.data.errors);
+        // onError(flattenErrors(error.response?.data.errors as ServerError));
         return;
       }
       onError(error.message);
