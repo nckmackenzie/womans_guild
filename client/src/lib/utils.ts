@@ -40,7 +40,9 @@ export const handleMutationError = (error: unknown) => {
       ? flattenErrors(error.response?.data.errors).join('\n')
       : error.response?.data.message;
     console.error('Axios error:', error.response?.data || error.message);
-    throw new Error(errors || 'An error occurred while creating the votehead.');
+    throw new Error(
+      errors || 'An error occurred while performing this action.'
+    );
   } else {
     console.error('Unexpected error:', error);
     throw new Error('An unexpected error occurred.');
