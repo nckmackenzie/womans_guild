@@ -9,7 +9,10 @@ import {
 } from '@/components/ui/card';
 import ExpenseForm from '@/features/expenses/components/expense-form';
 
+import { useTitle } from '@/hooks/use-title';
+
 export default function CreateEditExpense({ isEdit }: { isEdit?: boolean }) {
+  useTitle(isEdit ? 'Edit Expense' : 'Create Expense');
   return (
     <ContentWrapper title={isEdit ? 'Edit Expense' : 'Create Expense'}>
       <div className="space-y-4">
@@ -22,7 +25,7 @@ export default function CreateEditExpense({ isEdit }: { isEdit?: boolean }) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ExpenseForm />
+            <ExpenseForm isEdit={!!isEdit} />
           </CardContent>
         </Card>
       </div>
