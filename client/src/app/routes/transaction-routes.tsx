@@ -82,6 +82,14 @@ export const transactionRoutes: RouteObject[] = [
         ),
       },
       {
+        path: 'expenses/edit/:id',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CreateEditExpense isEdit />
+          </Suspense>
+        ),
+      },
+      {
         path: 'incomes',
         element: (
           <Suspense fallback={<PageLoader />}>
