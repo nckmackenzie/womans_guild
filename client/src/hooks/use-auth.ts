@@ -1,7 +1,8 @@
-import { getUser } from '@/lib/auth';
-import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+
+import { getUser } from '@/lib/auth';
 
 export const useAuth = ({ middleware }: { middleware: 'guest' | 'auth' }) => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export const useAuth = ({ middleware }: { middleware: 'guest' | 'auth' }) => {
     queryKey: ['user'],
     queryFn: getUser,
     retry: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
