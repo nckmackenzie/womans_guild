@@ -32,7 +32,7 @@ export default function Sidebar() {
         >
           <Link to="/dashboard" className="flex items-center gap-2">
             <PanelsTopLeft className="w-6 h-6 mr-1" />
-            <h1
+            {/* <h1
               className={cn(
                 'font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300',
                 sidebar?.isOpen === false
@@ -41,7 +41,7 @@ export default function Sidebar() {
               )}
             >
               Brand
-            </h1>
+            </h1> */}
           </Link>
         </Button>
         <Menu isOpen={sidebar?.isOpen} />
