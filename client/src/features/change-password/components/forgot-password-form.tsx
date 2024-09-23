@@ -49,7 +49,6 @@ export default function ForgotPasswordForm() {
 
   async function onSubmit(values: ForgotPasswordFormValues) {
     mutate(values);
-    form.setError('root', { message: 'This number is not registered' });
   }
 
   return (
@@ -66,6 +65,10 @@ export default function ForgotPasswordForm() {
                   <Input
                     maxLength={10}
                     {...field}
+                    onChange={e => {
+                      field.onChange(e.target.value);
+                      form.clearErrors('root');
+                    }}
                     placeholder="Enter phone number that was registered"
                     disabled={isPending}
                   />
