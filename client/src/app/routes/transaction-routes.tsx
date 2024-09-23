@@ -29,6 +29,15 @@ const CreateEditBudget = lazy(
 const CommunicationPage = lazy(
   () => import('@/features/communication/pages/index')
 );
+
+const IncomeProjectionPage = lazy(
+  () => import('@/features/income-projection/pages/index')
+);
+
+const CreateEditIncomeProjectionPage = lazy(
+  () => import('@/features/income-projection/pages/create-edit')
+);
+
 export const transactionRoutes: RouteObject[] = [
   {
     path: 'transactions',
@@ -110,6 +119,22 @@ export const transactionRoutes: RouteObject[] = [
         element: (
           <Suspense fallback={<PageLoader />}>
             <CreateEditIncome isEdit />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'income-projections',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <IncomeProjectionPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'income-projections/new',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CreateEditIncomeProjectionPage />
           </Suspense>
         ),
       },
