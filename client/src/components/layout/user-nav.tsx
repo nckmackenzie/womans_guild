@@ -10,12 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 
 import axios from '@/lib/axios';
@@ -44,26 +38,16 @@ export default function UserNav() {
   // const { setTheme } = useTheme();
   return (
     <DropdownMenu>
-      <TooltipProvider disableHoverableContent>
-        <Tooltip delayDuration={100}>
-          <TooltipTrigger asChild>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="relative h-8 w-8 rounded-full"
-              >
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/user.png" alt="Avatar" />
-                  <AvatarFallback className="bg-transparent">
-                    {user?.name ? getInitials(user.name) : 'u'}
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-          </TooltipTrigger>
-          <TooltipContent side="bottom">Profile</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" className="relative h-8 w-8 rounded-full">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src="/user.png" alt="Avatar" />
+            <AvatarFallback className="bg-transparent">
+              {user?.name ? getInitials(user.name) : 'u'}
+            </AvatarFallback>
+          </Avatar>
+        </Button>
+      </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuItem asChild className="cursor-pointer">
