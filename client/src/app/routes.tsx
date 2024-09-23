@@ -9,12 +9,17 @@ import { transactionRoutes } from '@/app/routes/transaction-routes';
 import { SessionProvider } from '@/app/session-provider';
 import { reportRoutes } from '@/app/routes/reports-route';
 import ChangePasswordPage from '@/features/global/pages/change-password';
+import ForgotPasswordIndexPage from '@/features/change-password/pages';
 
 export const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPasswordIndexPage />,
   },
   {
     path: '/',
