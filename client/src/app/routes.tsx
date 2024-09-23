@@ -10,6 +10,7 @@ import { SessionProvider } from '@/app/session-provider';
 import { reportRoutes } from '@/app/routes/reports-route';
 import ChangePasswordPage from '@/features/global/pages/change-password';
 import ForgotPasswordIndexPage from '@/features/change-password/pages';
+import ResetPasswordIndexPage from '@/features/reset-password/pages';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
   {
     path: '/forgot-password',
     element: <ForgotPasswordIndexPage />,
+  },
+  {
+    path: '/reset-password',
+    element: <ResetPasswordIndexPage />,
   },
   {
     path: '/',
