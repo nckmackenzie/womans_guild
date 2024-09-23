@@ -116,7 +116,7 @@ export default function LoginForm() {
                       <div className="flex items-center justify-between">
                         <FormLabel>Password</FormLabel>
                         <Link
-                          to="/auth/forgot-password"
+                          to="/forgot-password"
                           className={cn(
                             'text-sm underline underline-offset-4 hover:text-blue-800 font-medium',
                             isPending && 'pointer-events-none'
