@@ -13,9 +13,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { toast } from 'sonner';
 
 import { forgotPassword } from '@/features/change-password/api';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const forgotPasswordSchema = z.object({
   contact: z
@@ -27,12 +28,13 @@ const forgotPasswordSchema = z.object({
 export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
 export default function ForgotPasswordForm() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { isPending, mutate } = useMutation({
     mutationFn: forgotPassword,
-    onSuccess: data => {
+    onSuccess: () => {
       form.reset();
-      navigate('/reset-password?token=' + data?.token);
+      // navigate('/reset-password?token=' + data?.token);
+      toast.success('Password reset link sent to your phone number');
     },
     onError: error => {
       form.setError('root', { message: error.message });
