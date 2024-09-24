@@ -139,6 +139,14 @@ export const transactionRoutes: RouteObject[] = [
         ),
       },
       {
+        path: 'income-projections/edit/:id',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CreateEditIncomeProjectionPage isEdit />
+          </Suspense>
+        ),
+      },
+      {
         path: 'budgets',
         element: (
           <Suspense fallback={<PageLoader />}>
