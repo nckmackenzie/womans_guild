@@ -20,27 +20,36 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 import { useYears } from '@/features/years/hooks/use-years';
-import type { IsEditRequired, Option } from '@/types';
 import { incomeProjectionsSchema } from '@/features/income-projection/schema';
+import type { IsEditRequired, Option } from '@/types';
 import type { IncomeProjectionsFormValues } from '@/features/income-projection/types';
 import { useMutate } from '@/hooks/use-mutate';
-import { createIncomeProjection } from '@/features/income-projection/api';
+import {
+  createIncomeProjection,
+  updateIncomeProjection,
+} from '@/features/income-projection/api';
 import { useError } from '@/hooks/use-error';
 
 interface CreateEditFormProps extends IsEditRequired {
   voteheads: Option[];
+  data?: IncomeProjectionsFormValues;
 }
 export default function CreateEditForm({
   isEdit,
   voteheads,
+  data,
 }: CreateEditFormProps) {
   const { isLoadingYears, years, yearsError } = useYears();
   const { clearErrors, errors, onError } = useError();
 
-  const { isPending, mutate } = useMutate(createIncomeProjection, undefined, {
-    queryKey: 'income-projections',
-    redirectPath: '/transactions/income-projections',
-  });
+  const { isPending, mutate } = useMutate(
+    createIncomeProjection,
+    updateIncomeProjection,
+    {
+      queryKey: 'income-projections',
+      redirectPath: '/transactions/income-projections',
+    }
+  );
   const form = useForm<IncomeProjectionsFormValues>({
     defaultValues: {
       yearId: '',
@@ -69,6 +78,23 @@ export default function CreateEditForm({
       });
     }
   }, [voteheads, form]);
+
+  useEffect(
+    function () {
+      if (data) {
+        form.reset({
+          yearId: data.yearId,
+          details: data.details.map(detail => ({
+            id: detail.id.toString(),
+            amount: detail.amount,
+            voteheadId: detail.voteheadId,
+            votehead: detail.votehead,
+          })),
+        });
+      }
+    },
+    [data, form]
+  );
 
   const { fields } = useFieldArray({
     control: form.control,
