@@ -34,3 +34,11 @@ export const dateFormat = (date: Date | string) => {
 export const reportDate = (date: Date | string) => {
   return format(new Date(date), 'dd-MMM-yyyy');
 };
+
+export const compactNumberFormatter = (value: string | number) => {
+  return new Intl.NumberFormat('en-KE', {
+    // style: 'currency',
+    notation: 'compact',
+    maximumFractionDigits: 2,
+  }).format(Number(value));
+};
