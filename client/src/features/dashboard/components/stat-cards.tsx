@@ -12,7 +12,7 @@ import { ErrorComponent } from '@/components/ui/basic-alert';
 
 import { usePageFetch } from '@/hooks/use-page-fetch';
 import { fetchDashboardData } from '@/features/dashboard/api';
-import { compactNumberFormatter, numberFormatter } from '@/lib/formatters';
+import { compactNumberFormatter } from '@/lib/formatters';
 
 export default function StatCards() {
   const { data, error, isLoading } = usePageFetch(
@@ -23,7 +23,9 @@ export default function StatCards() {
   if (error) return <ErrorComponent error={error.message} />;
 
   const expensesTotal = data?.data?.totalExpenses || 0;
-  const incomeTotal = data?.data?.totalIncome || 0;
+  const incomeTotal = data?.data?.totalIncomes || 0;
+  const memberWithBalances =
+    data?.data.closingBalances.filter(m => m.closingBalance > 0).length || 0;
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -37,7 +39,7 @@ export default function StatCards() {
         title="Income"
         Icon={HandCoins}
         description="Income collected from current year"
-        value={`Ksh. ${numberFormatter(incomeTotal)}`}
+        value={`Ksh. ${compactNumberFormatter(incomeTotal)}`}
       />
       <DashboardCard
         title="Expense"
@@ -48,8 +50,8 @@ export default function StatCards() {
       <DashboardCard
         title="Pending Members"
         Icon={Hourglass}
-        description="Members with pending membership balances"
-        value={`0`}
+        description="Members with  balances"
+        value={memberWithBalances.toString()}
       />
     </div>
   );
