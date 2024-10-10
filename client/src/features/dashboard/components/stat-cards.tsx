@@ -22,8 +22,8 @@ export default function StatCards() {
   if (isLoading) return <LoadingSkeletons />;
   if (error) return <ErrorComponent error={error.message} />;
 
-  const expensesTotal = data?.data.totalExpenses || 0;
-  const incomeTotal = data?.data.totalIncome || 0;
+  const expensesTotal = data?.data?.totalExpenses || 0;
+  const incomeTotal = data?.data?.totalIncome || 0;
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -31,7 +31,7 @@ export default function StatCards() {
         title="Members"
         Icon={Users}
         description="Total number of members in the platform"
-        value={`${data?.data.totalMembers || 0} Members`}
+        value={`${data?.data?.totalMembers || 0} Members`}
       />
       <DashboardCard
         title="Income"
