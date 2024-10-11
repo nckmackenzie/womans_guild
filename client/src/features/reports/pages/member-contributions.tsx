@@ -47,7 +47,11 @@ export default function MemberContributions() {
           ) : (
             <FormGroup className="w-96">
               <Label>Year</Label>
-              <CustomSearchSelect options={years} onChange={setYearId} />
+              <CustomSearchSelect
+                enableClear={false}
+                options={years}
+                onChange={setYearId}
+              />
             </FormGroup>
           )}
           <Button onClick={handleClick}>Preview</Button>
