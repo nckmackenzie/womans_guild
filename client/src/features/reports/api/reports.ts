@@ -6,6 +6,7 @@ import type {
   IncomeReportItem,
   BudgetExpenseReportItem,
 } from '@/features/reports/types';
+import { ClosingBalance } from '@/features/closing-balances/types';
 
 export async function fetchMembersReport(
   query?: string
@@ -68,5 +69,16 @@ export async function fetchBudgetExpenseReport(
     }
 
     throw new Error('Something went wrong while fetching report');
+  }
+}
+
+export async function fetchClosingBalances(
+  id: string
+): Promise<{ data: ClosingBalance[] }> {
+  try {
+    const { data } = await axios(`/api/closingbalances/${id}/get`);
+    return data;
+  } catch (error) {
+    throw new Error('Something went wrong while fetching this details');
   }
 }
