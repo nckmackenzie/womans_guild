@@ -62,20 +62,24 @@ function ContributionsTable({ data }: ContributionsTableProps) {
           <>
             <TableCell className="font-bold">Total</TableCell>
             <TableCell className="text-right text-bold">
-              {numberFormatter(data.reduce((a, b) => a + b.balanceBf, 0))}
-            </TableCell>
-            <TableCell className="text-right text-bold">
               {numberFormatter(
-                data.reduce((a, b) => a + b.yearContributions, 0)
+                data.reduce((a, b) => a + Number(b.balanceBf), 0)
               )}
             </TableCell>
             <TableCell className="text-right text-bold">
               {numberFormatter(
-                data.reduce((a, b) => a + b.totalContributions, 0)
+                data.reduce((a, b) => a + Number(b.yearContributions), 0)
               )}
             </TableCell>
             <TableCell className="text-right text-bold">
-              {numberFormatter(data.reduce((a, b) => a + b.closingBalance, 0))}
+              {numberFormatter(
+                data.reduce((a, b) => a + Number(b.totalContributions), 0)
+              )}
+            </TableCell>
+            <TableCell className="text-right text-bold">
+              {numberFormatter(
+                data.reduce((a, b) => a + Number(b.closingBalance), 0)
+              )}
             </TableCell>
           </>
         }
