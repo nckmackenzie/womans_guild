@@ -63,6 +63,11 @@ export function getMenuList(pathname: string): Group[] {
               label: 'Set Member Contribution',
               active: pathname.includes('/admin/member-contributions'),
             },
+            {
+              href: '/admin/closing-balances',
+              label: 'Closing Balances',
+              active: pathname.includes('/admin/closing-balances'),
+            },
           ],
         },
         {
@@ -135,9 +140,9 @@ export function getMenuList(pathname: string): Group[] {
               active: pathname.includes('/reports/budget-expense'),
             },
             {
-              href: '/reports/income-statement',
-              label: 'Income Statement',
-              active: pathname.includes('/reports/income-statement'),
+              href: '/reports/member-contributions',
+              label: 'Member Contributions',
+              active: pathname.includes('/reports/member-contributions'),
             },
           ],
         },

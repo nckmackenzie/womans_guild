@@ -17,6 +17,8 @@ const VoteheadManagement = lazy(
   () => import('@/features/voteheads/pages/votehead-management')
 );
 
+const ClosingBalances = lazy(() => import('@/features/closing-balances/pages'));
+
 export const adminRoutes: RouteObject[] = [
   {
     path: 'admin',
@@ -90,6 +92,14 @@ export const adminRoutes: RouteObject[] = [
         element: (
           <Suspense fallback={<PageLoader />}>
             <MemberContribution />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'closing-balances',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ClosingBalances />
           </Suspense>
         ),
       },

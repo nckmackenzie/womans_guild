@@ -20,6 +20,10 @@ const BudgetExpenseReport = lazy(
   () => import('@/features/reports/pages/budget-expense')
 );
 
+const MemberContributionsReport = lazy(
+  () => import('@/features/reports/pages/member-contributions')
+);
+
 export const reportRoutes: RouteObject[] = [
   {
     path: 'reports',
@@ -53,6 +57,14 @@ export const reportRoutes: RouteObject[] = [
         element: (
           <Suspense fallback={<PageLoader />}>
             <BudgetExpenseReport />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'member-contributions',
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <MemberContributionsReport />
           </Suspense>
         ),
       },
