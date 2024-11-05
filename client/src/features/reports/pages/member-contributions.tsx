@@ -15,8 +15,10 @@ import { TableSkeleton } from '@/components/ui/table-skeleton';
 
 import { useYears } from '@/features/years/hooks/use-years';
 import { fetchClosingBalances } from '@/features/reports/api/reports';
+import { useTitle } from '@/hooks/use-title';
 
 export default function MemberContributions() {
+  useTitle('Member contributions');
   const [searchParams, setSearchParams] = useSearchParams();
   const { data, error, isLoading } = useQuery({
     queryKey: ['closing balances', searchParams.get('year')],
