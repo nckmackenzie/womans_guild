@@ -189,5 +189,5 @@ function BalancesTable({
       },
     },
   ];
-  return <DataTable data={data} columns={columns} />;
+  return <DataTable data={data} columns={columns} defaultPageSize={30} />;
 }
