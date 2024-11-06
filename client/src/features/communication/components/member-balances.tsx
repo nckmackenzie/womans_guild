@@ -89,7 +89,7 @@ export default function MemberBalances({
           <TableSkeleton rowCount={20} columnWidths={['w-8', 'w-56', 'w-24']} />
         ) : (
           <BalancesTable
-            data={data?.data || []}
+            data={data?.data.filter(m => m.closingBalance > 0) || []}
             onSelectedMember={setSelectedMembers}
             isPending={isPending}
           />
