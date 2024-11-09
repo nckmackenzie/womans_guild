@@ -1,6 +1,6 @@
 import {
   HandCoins,
-  // Hourglass,
+  Hourglass,
   Receipt,
   Users,
   type LucideIcon,
@@ -24,7 +24,7 @@ export default function StatCards() {
 
   const expensesTotal = data?.data?.totalExpenses || 0;
   const incomeTotal = data?.data?.totalIncomes || 0;
-  // const memberWithBalances = data?.data.memberWithBalances || 0;
+  const memberWithBalances = data?.data.memberWithBalances || 0;
   // const memberWithBalances =
   //   data?.data?.memberWithBalances.filter(m => Number(m.closingBalance) > 0) ||
   //   0;
@@ -49,12 +49,12 @@ export default function StatCards() {
         description="Expenses incurred in current year"
         value={`Ksh. ${compactNumberFormatter(expensesTotal)}`}
       />
-      {/* <DashboardCard
+      <DashboardCard
         title="Pending Members"
         Icon={Hourglass}
         description="Members with  balances"
         value={memberWithBalances.toString()}
-      /> */}
+      />
     </div>
   );
 }
