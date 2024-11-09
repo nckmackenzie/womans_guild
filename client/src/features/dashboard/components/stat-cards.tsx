@@ -24,7 +24,10 @@ export default function StatCards() {
 
   const expensesTotal = data?.data?.totalExpenses || 0;
   const incomeTotal = data?.data?.totalIncomes || 0;
-  const memberWithBalances = data?.data.memberWithBalances || 0;
+  // const memberWithBalances = data?.data.memberWithBalances || 0;
+  const memberWithBalances =
+    data?.data?.memberWithBalances.filter(m => Number(m.closingBalance) > 0) ||
+    0;
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
