@@ -1,5 +1,5 @@
 export interface DashboardCardsData {
   totalMembers: number;
-  totalIncome: number;
+  totalIncomes: number;
   totalExpenses: number;
 }
